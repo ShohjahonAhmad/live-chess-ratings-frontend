@@ -9,7 +9,7 @@ export default function Menu() {
   const [timeControl, setTimeControl] = useState(TimeControl.CLASSICAL);
 
   return (
-    <main className="w-screen h-16 bg-slate-900 px-20 py-4 flex justify-between items-center">
+    <main className="w-full h-16 bg-slate-900 px-20 py-4 flex justify-between items-center">
       <div className="flex gap-2">
         <Logo />
         <h1 className="text-slate-50 font-extrabold text-xl">

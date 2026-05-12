@@ -1,5 +1,6 @@
 import type { Route } from "./+types/home";
 import Menu from "../menu/Menu";
+import Table from "~/table/Table";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -9,5 +10,10 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <Menu />;
+  return (
+    <>
+      <Menu />
+      <Table />
+    </>
+  );
 }
