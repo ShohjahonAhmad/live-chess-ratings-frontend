@@ -1,6 +1,6 @@
 import type { Route } from "./+types/home";
 import Menu from "../menu/Menu";
-import Table from "~/table/Table";
+import RatingPage from "~/rating/RatingPage";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <Menu />
-      <Table />
+      <RatingPage />
     </>
   );
 }
