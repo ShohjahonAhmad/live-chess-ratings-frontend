@@ -10,14 +10,14 @@ export default function RatingLoss() {
       <path
         d="M8 8.5H11V5.5"
         stroke="#EF4444"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M11 8.5L6.75 4.25L4.25 6.75L1 3.5"
         stroke="#EF4444"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

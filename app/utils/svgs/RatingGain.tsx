@@ -10,14 +10,14 @@ export default function RatingGain() {
       <path
         d="M8 3.5H11V6.5"
         stroke="#10B981"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M11 3.5L6.75 7.75L4.25 5.25L1 8.5"
         stroke="#10B981"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

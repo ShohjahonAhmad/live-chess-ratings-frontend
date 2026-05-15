@@ -3,3 +3,9 @@ export enum TimeControl{
     RAPID = "Rapid",
     BLITZ = "Blitz"
 }
+
+export enum Result{
+    WIN,
+    LOSS,
+    DRAW
+}

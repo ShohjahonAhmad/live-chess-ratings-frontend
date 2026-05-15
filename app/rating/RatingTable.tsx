@@ -46,6 +46,12 @@ export default function RatingTable<TData, TValue>({
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: 100,
+      },
+    },
   });
 
   return (

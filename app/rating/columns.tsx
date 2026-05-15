@@ -22,7 +22,7 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "name",
-    header: "Name",
+    header: () => <div className="text-left">Player</div>,
     cell: (info) => {
       return (
         <div className="text-left text-sm font-bold leading-3.5">

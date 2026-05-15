@@ -1,19 +1,26 @@
-import { useEffect, useState } from "react";
-import type { User } from "~/types/User";
+import { type TopRatingsResponse } from "~/api/getTopRatings";
 import RatingTable from "./RatingTable";
 import { columns } from "./columns";
-import { getStdRatings } from "~/api/getStdRatings";
+import { TimeControl } from "~/types/TypeControl";
+import { useLoaderData } from "react-router";
 
-export default function RatingPage() {
-  const [data, setData] = useState<User[]>([]);
+export default function RatingPage({
+  timeControl,
+}: {
+  timeControl: TimeControl;
+}) {
+  const data = useLoaderData() as TopRatingsResponse;
 
-  useEffect(() => {
-    getStdRatings().then((data) => setData(data));
-  }, []);
-
+  const displayData =
+    data &&
+    (timeControl === TimeControl.BLITZ
+      ? data.blitzRatings
+      : timeControl === TimeControl.RAPID
+        ? data.rapidRatings
+        : data.stdRatings);
   return (
     <div>
-      <RatingTable data={data} columns={columns} />
+      <RatingTable data={displayData} columns={columns} />
     </div>
   );
 }

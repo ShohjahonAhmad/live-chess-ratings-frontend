@@ -5,9 +5,13 @@ import Rapid from "~/utils/svgs/Rapid";
 import { useState } from "react";
 import { TimeControl } from "~/types/TypeControl";
 import TimeControlComponent from "./TimeControlComponent";
-export default function Menu() {
-  const [timeControl, setTimeControl] = useState(TimeControl.CLASSICAL);
-
+export default function Menu({
+  timeControl,
+  setTimeControl,
+}: {
+  timeControl: TimeControl;
+  setTimeControl: React.Dispatch<React.SetStateAction<TimeControl>>;
+}) {
   return (
     <main className="w-full h-16 bg-slate-900 px-20 py-4 flex justify-between items-center">
       <div className="flex gap-2">
