@@ -1,3 +1,5 @@
+import type { RecentGames } from "~/api/getTopRatings";
+
 export type User = {
   fideId?: number;
   name: string;
@@ -6,4 +8,5 @@ export type User = {
   rating: number;
   ratingChange: number;
   count: number;
+  recentGames: RecentGames[]
 };

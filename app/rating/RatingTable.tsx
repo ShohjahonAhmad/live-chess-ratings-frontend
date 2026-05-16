@@ -8,8 +8,10 @@ import {
   type ColumnDef,
   getFilteredRowModel,
   type ColumnFiltersState,
+  getExpandedRowModel,
+  type ExpandedState,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import {
@@ -20,30 +22,34 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
+import type { User } from "~/types/User";
+import SubRows from "./SubRows";
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+interface DataTableProps {
+  columns: ColumnDef<User>[];
+  data: User[];
 }
 
-export default function RatingTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export default function RatingTable({ columns, data }: DataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [expanded, setExpanded] = useState<ExpandedState>({});
 
   const table = useReactTable({
     data,
     columns,
+    getRowCanExpand: (row) => !!row.original.recentGames,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
     state: {
       sorting,
       columnFilters,
+      expanded,
     },
+    onExpandedChange: setExpanded,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     initialState: {
@@ -66,47 +72,51 @@ export default function RatingTable<TData, TValue>({
           className="max-w-sm"
         />
       </div>
-      <div className="overflow-hidden rounded-md border">
-        <Table>
+      <div className="overflow-hidden rounded-2xl border">
+        <Table className="w-full">
           <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header, idx) => (
-                  <TableHead
-                    key={header.id}
-                    style={{ width: idx === 1 ? "60%" : "10%" }}
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
+            <TableRow className="w-full">
+              <TableHead className="w-[5%]">#</TableHead>
+              <TableHead className="w-[50%] text-left">Player</TableHead>
+              <TableHead className="w-[10%]">Fed</TableHead>
+              <TableHead className="w-[10%]">Age</TableHead>
+              <TableHead className="w-[10%]">Rating</TableHead>
+              <TableHead className="w-[10%]">Change</TableHead>
+              <TableHead className="w-[5%]"></TableHead>
+            </TableRow>
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length > 0 ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell, idx) => (
-                    <TableCell
-                      key={cell.id}
-                      style={{ width: idx === 1 ? "60%" : "auto" }}
+              table.getRowModel().rows.map((row) => {
+                return (
+                  <React.Fragment>
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && "selected"}
                     >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
+                      {row.getVisibleCells().map((cell, idx) => (
+                        <TableCell
+                          key={cell.id}
+                          style={{ width: idx === 1 ? "60%" : "auto" }}
+                          className="h-[41px]"
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                    {row.getIsExpanded() && row.original.recentGames && (
+                      <TableRow>
+                        <TableCell colSpan={columns.length}>
+                          <SubRows recentGames={row.original.recentGames} />
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </React.Fragment>
+                );
+              })
             ) : (
               <TableRow>
                 <TableCell

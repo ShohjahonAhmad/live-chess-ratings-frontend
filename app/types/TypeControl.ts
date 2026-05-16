@@ -5,7 +5,7 @@ export enum TimeControl{
 }
 
 export enum Result{
-    WIN,
-    LOSS,
-    DRAW
+    WIN = "WIN",
+    LOSS = "LOSS",
+    DRAW = "DRAW"
 }

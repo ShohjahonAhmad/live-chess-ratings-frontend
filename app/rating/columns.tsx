@@ -1,7 +1,12 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import type { User } from "~/types/User";
 
-import { ArrowUpDown } from "lucide-react";
+import {
+  ArrowUpDown,
+  ChevronDownIcon,
+  ChevronRight,
+  ChevronRightIcon,
+} from "lucide-react";
 
 import { Button } from "~/components/ui/button";
 import RatingGain from "~/utils/svgs/RatingGain";
@@ -17,7 +22,13 @@ export const columns: ColumnDef<User>[] = [
           .getCoreRowModel()
           .rows.findIndex((row) => row.id == info.row.id) + 1;
 
-      return <div className="text-[#64748B] leading-5 text-center">{rank}</div>;
+      return (
+        <div
+          className={`leading-5 text-center font-medium ${info.row.getIsExpanded() ? "text-[#3B82F6]" : "text-[#64748B] "}`}
+        >
+          {rank}
+        </div>
+      );
     },
   },
   {
@@ -25,7 +36,9 @@ export const columns: ColumnDef<User>[] = [
     header: () => <div className="text-left">Player</div>,
     cell: (info) => {
       return (
-        <div className="text-left text-sm font-bold leading-3.5">
+        <div
+          className={`text-left text-sm font-bold leading-3.5 ${info.row.getIsExpanded() && "text-[#3B82F6]"}`}
+        >
           {getFullName(info.getValue() as string)}
         </div>
       );
@@ -58,7 +71,9 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: "rating",
     header: "Rating",
     cell: (info) => (
-      <div className="font-black leading-5 text-sm text-center">
+      <div
+        className={`font-black leading-5 text-sm text-center ${info.row.getIsExpanded() && "text-[#3B82F6]"}`}
+      >
         {info.getValue() as number}
       </div>
     ),
@@ -98,6 +113,26 @@ export const columns: ColumnDef<User>[] = [
           <span>- {Math.abs(ratingChange)}</span>
         </div>
       );
+    },
+  },
+  {
+    id: "games",
+    header: () => null,
+    cell: ({ row }) => {
+      return row.original.recentGames ? (
+        <Button
+          className={`h-5.5 w-5.5 p-0 ${row.getIsExpanded() ? "bg-[#3B82F6] text-white hover:text-white hover:bg-[#3B82F6]" : ""}`}
+          onClick={() => row.toggleExpanded()}
+          size="sm"
+          variant="ghost"
+        >
+          {row.getIsExpanded() ? (
+            <ChevronDownIcon className="size-4 transition-all " />
+          ) : (
+            <ChevronRightIcon className="size-4 transition-all" />
+          )}
+        </Button>
+      ) : null;
     },
   },
 ];

@@ -1,0 +1,92 @@
+import type { RecentGames } from "~/api/getTopRatings";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "~/components/ui/table";
+import Draw from "./results/Draw";
+import Win from "./results/Win";
+import Loss from "./results/Loss";
+
+export default function SubRows({
+  recentGames,
+}: {
+  recentGames: RecentGames[];
+}) {
+  const headerClasses = "px-4 py-1.5 text-[#64748B] font-semibold text-xs";
+
+  return (
+    <div className="px-12 py-4">
+      <div className="rounded-lg border overflow-hidden shadow-lg">
+        <Table>
+          <TableHeader className="border-b">
+            <TableRow>
+              <TableHead className={`text-left ${headerClasses} w-[10%]`}>
+                Date
+              </TableHead>
+              <TableHead className={`text-left ${headerClasses} w-[25%]`}>
+                Tournament
+              </TableHead>
+              <TableHead className={`text-left ${headerClasses} w-[25%]`}>
+                Opponent
+              </TableHead>
+              <TableHead className={`text-right ${headerClasses} w-[15%]`}>
+                Opp. Rating
+              </TableHead>
+              <TableHead className={`text-center ${headerClasses} w-[15%]`}>
+                Result
+              </TableHead>
+              <TableHead className={`text-right ${headerClasses} w-[15%]`}>
+                Rating +/-
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {recentGames.map((game, idx) => (
+              <TableRow key={game.id} className="border-b last:border-0">
+                <TableCell className="text-[#64748B] text-xs leading-4 px-4 py-2">
+                  {formatDate(game.date)}
+                </TableCell>
+                <TableCell className="px-4 py-2 font-medium text-xs leading-4 truncate max-w-0">
+                  {game.tournament}
+                </TableCell>
+                <TableCell className="px-4 py-2 text-xs leading-4 truncate">
+                  {game.opponentName}
+                </TableCell>
+                <TableCell className="px-4 py-2 text-right text-[#64748B] text-xs">
+                  2800
+                </TableCell>
+                <TableCell className="px-4 py-2 flex justify-center">
+                  {game.result == "DRAW" ? (
+                    <Draw />
+                  ) : game.change > 0 ? (
+                    <Win score={`${game.result === "WIN" ? "1-0" : "0-1"}`} />
+                  ) : (
+                    <Loss score={`${game.result === "WIN" ? "1-0" : "0-1"}`} />
+                  )}
+                </TableCell>
+                <TableCell
+                  className={`px-4 py-2 font-bold leading-4 text-xs text-right ${game.change > 0 ? "text-[#10B981]" : game.change < 0 ? "text-[#EF4444]" : "text-[#64748B]"}`}
+                >
+                  {game.change > 0 ? "+" : game.change === 0 ? "" : "-"}{" "}
+                  {Math.abs(game.change)}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  );
+}
+
+function formatDate(date: string): string {
+  return new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
