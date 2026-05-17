@@ -57,7 +57,7 @@ export default function SubRows({
                   {game.opponentName}
                 </TableCell>
                 <TableCell className="px-4 py-2 text-right text-[#64748B] text-xs">
-                  2800
+                  {game.opponentRating}
                 </TableCell>
                 <TableCell className="px-4 py-2 flex justify-center">
                   {game.result == "DRAW" ? (

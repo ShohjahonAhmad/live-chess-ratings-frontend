@@ -4,6 +4,7 @@ export type RecentGames = {
     readonly id: string;
     readonly opponentFideId: number;
     readonly opponentName: string;
+    readonly opponentRating: number;
     readonly change: number;
     readonly result: Result;
     readonly date: string;
