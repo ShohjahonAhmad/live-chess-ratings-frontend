@@ -10,6 +10,7 @@ import {
   type ColumnFiltersState,
   getExpandedRowModel,
   type ExpandedState,
+  type Row,
 } from "@tanstack/react-table";
 import React, { useState } from "react";
 import { Button } from "~/components/ui/button";
@@ -34,6 +35,23 @@ export default function RatingTable({ columns, data }: DataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [expanded, setExpanded] = useState<ExpandedState>({});
+  const [closingRows, setClosingRows] = useState<Set<string>>(new Set());
+
+  const handleSubRowToggle = (row: Row<User>) => {
+    if (row.getIsExpanded()) {
+      setClosingRows((prev) => new Set(prev).add(row.id));
+      setTimeout(() => {
+        row.toggleExpanded();
+        setClosingRows((prev) => {
+          const next = new Set(prev);
+          next.delete(row.id);
+          return next;
+        });
+      }, 500);
+    } else {
+      row.toggleExpanded();
+    }
+  };
 
   const table = useReactTable({
     data,
@@ -58,6 +76,9 @@ export default function RatingTable({ columns, data }: DataTableProps) {
         pageSize: 100,
       },
     },
+    meta: {
+      handleSubRowToggle,
+    },
   });
 
   return (
@@ -81,7 +102,7 @@ export default function RatingTable({ columns, data }: DataTableProps) {
               <TableHead className="w-[10%]">Fed</TableHead>
               <TableHead className="w-[10%]">Age</TableHead>
               <TableHead className="w-[10%]">Rating</TableHead>
-              <TableHead className="w-[10%]">Change</TableHead>
+              <TableHead className="w-[10%] text-right">Change</TableHead>
               <TableHead className="w-[5%]"></TableHead>
             </TableRow>
           </TableHeader>
@@ -89,17 +110,10 @@ export default function RatingTable({ columns, data }: DataTableProps) {
             {table.getRowModel().rows?.length > 0 ? (
               table.getRowModel().rows.map((row) => {
                 return (
-                  <React.Fragment>
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && "selected"}
-                    >
-                      {row.getVisibleCells().map((cell, idx) => (
-                        <TableCell
-                          key={cell.id}
-                          style={{ width: idx === 1 ? "60%" : "auto" }}
-                          className="h-[41px]"
-                        >
+                  <React.Fragment key={row.id}>
+                    <TableRow className="transition-all duration-300 ease-in-out">
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id} className="h-[41px]">
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext()
@@ -107,13 +121,21 @@ export default function RatingTable({ columns, data }: DataTableProps) {
                         </TableCell>
                       ))}
                     </TableRow>
-                    {row.getIsExpanded() && row.original.recentGames && (
-                      <TableRow>
-                        <TableCell colSpan={columns.length}>
-                          <SubRows recentGames={row.original.recentGames} />
-                        </TableCell>
-                      </TableRow>
-                    )}
+                    {(row.getIsExpanded() || closingRows.has(row.id)) &&
+                      row.original.recentGames && (
+                        <TableRow>
+                          <TableCell colSpan={columns.length}>
+                            <div
+                              style={{
+                                overflow: "hidden",
+                                animation: `${closingRows.has(row.id) ? "collapse" : "expand"} 500ms ease-out`,
+                              }}
+                            >
+                              <SubRows recentGames={row.original.recentGames} />
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      )}
                   </React.Fragment>
                 );
               })

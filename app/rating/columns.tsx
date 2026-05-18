@@ -1,12 +1,7 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import type { User } from "~/types/User";
 
-import {
-  ArrowUpDown,
-  ChevronDownIcon,
-  ChevronRight,
-  ChevronRightIcon,
-} from "lucide-react";
+import { ArrowUpDown, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 
 import { Button } from "~/components/ui/button";
 import RatingGain from "~/utils/svgs/RatingGain";
@@ -96,19 +91,19 @@ export const columns: ColumnDef<User>[] = [
       const ratingChange = (info.getValue() as number) || 0;
       if (ratingChange === 0)
         return (
-          <div className="text-[#64748B] text-xs font-bold leading-4 text-right pr-4">
+          <div className="text-[#64748B] text-xs font-bold leading-4 text-right">
             {ratingChange}
           </div>
         );
       if (ratingChange > 0)
         return (
-          <div className="flex items-center justify-end gap-1 text-[#10B981] text-xs font-bold leading-4 text-right pr-4">
+          <div className="flex items-center justify-end gap-1 text-[#10B981] text-xs font-bold leading-4 text-right">
             <RatingGain />
             <span>+ {ratingChange}</span>
           </div>
         );
       return (
-        <div className="flex items-center justify-end text-[#EF4444] gap-1 text-xs font-bold leading-4 text-right pr-4">
+        <div className="flex items-center justify-end text-[#EF4444] gap-1 text-xs font-bold leading-4 text-right">
           <RatingLoss />
           <span>- {Math.abs(ratingChange)}</span>
         </div>
@@ -118,20 +113,22 @@ export const columns: ColumnDef<User>[] = [
   {
     id: "games",
     header: () => null,
-    cell: ({ row }) => {
+    cell: ({ row, table }) => {
       return row.original.recentGames ? (
-        <Button
-          className={`h-5.5 w-5.5 p-0 ${row.getIsExpanded() ? "bg-[#3B82F6] text-white hover:text-white hover:bg-[#3B82F6]" : ""}`}
-          onClick={() => row.toggleExpanded()}
-          size="sm"
-          variant="ghost"
-        >
-          {row.getIsExpanded() ? (
-            <ChevronDownIcon className="size-4 transition-all " />
-          ) : (
-            <ChevronRightIcon className="size-4 transition-all" />
-          )}
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            className={`h-5.5 w-5.5 p-0 ${row.getIsExpanded() ? "bg-[#3B82F6] text-white hover:text-white hover:bg-[#3B82F6]" : ""}`}
+            onClick={() => (table.options.meta as any).handleSubRowToggle(row)}
+            size="sm"
+            variant="ghost"
+          >
+            {row.getIsExpanded() ? (
+              <ChevronUpIcon className="size-4 transition-all" />
+            ) : (
+              <ChevronDownIcon className="size-4 transition-all" />
+            )}
+          </Button>
+        </div>
       ) : null;
     },
   },

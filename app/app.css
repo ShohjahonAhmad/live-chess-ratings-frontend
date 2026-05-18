@@ -142,3 +142,13 @@ body {
     @apply font-sans;
   }
 }
+
+@keyframes expand {
+  from {max-height: 0px}
+  to {max-height: 500px}
+}
+
+@keyframes collapse {
+  from {max-height: 500px}
+  to {max-height: 0px}
+}
