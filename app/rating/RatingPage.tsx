@@ -18,9 +18,5 @@ export default function RatingPage({
       : timeControl === TimeControl.RAPID
         ? data.rapidRatings
         : data.stdRatings);
-  return (
-    <div className="dark:bg-[#0f172a]">
-      <RatingTable data={displayData} columns={columns} />
-    </div>
-  );
+  return <RatingTable data={displayData} columns={columns} />;
 }

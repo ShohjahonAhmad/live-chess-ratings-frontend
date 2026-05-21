@@ -12,11 +12,12 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-white dark:bg-[#0f172a] min-h-screen;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+  
 }
 
 @theme inline {

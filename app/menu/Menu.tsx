@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { TimeControl } from "~/types/TypeControl";
 import TimeControlComponent from "./TimeControlComponent";
 import Mode from "~/utils/svgs/Mode";
+import { useDarkMode } from "~/contexts/DarkModeContext";
 export default function Menu({
   timeControl,
   setTimeControl,
@@ -13,7 +14,7 @@ export default function Menu({
   timeControl: TimeControl;
   setTimeControl: React.Dispatch<React.SetStateAction<TimeControl>>;
 }) {
-  const [isDark, setIsDark] = useState(false);
+  const { isDark, setIsDark } = useDarkMode();
 
   useEffect(() => {
     if (isDark) {
@@ -21,7 +22,7 @@ export default function Menu({
     } else {
       document.documentElement.classList.remove("dark");
     }
-  });
+  }, [isDark]);
 
   return (
     <main className="w-full h-16 dark:bg-[#334155] bg-[#0F172A] px-20 py-4 flex justify-between items-center">

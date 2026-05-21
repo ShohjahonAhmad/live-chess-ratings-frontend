@@ -25,6 +25,8 @@ import {
 } from "~/components/ui/table";
 import type { User } from "~/types/User";
 import SubRows from "./SubRows";
+import Info from "~/utils/svgs/Info";
+import { useDarkMode } from "~/contexts/DarkModeContext";
 
 interface DataTableProps {
   columns: ColumnDef<User>[];
@@ -32,6 +34,7 @@ interface DataTableProps {
 }
 
 export default function RatingTable({ columns, data }: DataTableProps) {
+  const { isDark, setIsDark } = useDarkMode();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [expanded, setExpanded] = useState<ExpandedState>({});
@@ -83,19 +86,34 @@ export default function RatingTable({ columns, data }: DataTableProps) {
 
   return (
     <div className="px-24 py-6">
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter by player..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
-      </div>
       <div className="overflow-hidden rounded-2xl border">
         <Table className="w-full dark:bg-[#1E293B]/30">
           <TableHeader>
+            <TableRow>
+              <TableCell colSpan={columns.length}>
+                <div className="flex w-full items-center justify-between">
+                  <Input
+                    placeholder="Filter by player..."
+                    value={
+                      (table.getColumn("name")?.getFilterValue() as string) ??
+                      ""
+                    }
+                    onChange={(event) =>
+                      table
+                        .getColumn("name")
+                        ?.setFilterValue(event.target.value)
+                    }
+                    className="w-1/5 min-w-64"
+                  />
+                  <div className="flex gap-1.5 items-center">
+                    <Info stroke={isDark ? "#94A3B8" : "#64748B"}></Info>
+                    <h2 className="text-[#64748B] dark:text-[#94A3B8]">
+                      Updated in real-time
+                    </h2>
+                  </div>
+                </div>
+              </TableCell>
+            </TableRow>
             <TableRow className="w-full">
               <TableHead className="w-[5%]">#</TableHead>
               <TableHead className="w-[50%] text-left">Player</TableHead>
