@@ -16,14 +16,15 @@ export default function SubRows({
 }: {
   recentGames: RecentGames[];
 }) {
-  const headerClasses = "px-4 py-1.5 text-[#64748B] font-semibold text-xs";
+  const headerClasses =
+    "px-4 py-1.5 text-[#64748B] font-semibold text-xs dark:bg-[#0f172a]/50";
 
   return (
     <div className="px-12 py-4">
-      <div className="rounded-lg border overflow-hidden shadow-lg">
+      <div className="rounded-2xl border overflow-hidden shadow-l">
         <Table>
           <TableHeader className="border-b">
-            <TableRow>
+            <TableRow className="bg-[#F1F5F9]">
               <TableHead className={`text-left ${headerClasses} w-[10%]`}>
                 Date
               </TableHead>
@@ -44,16 +45,19 @@ export default function SubRows({
               </TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody className="dark:bg-[#0f172a]">
             {recentGames.map((game, idx) => (
-              <TableRow key={game.id} className="border-b last:border-0">
+              <TableRow
+                key={game.id}
+                className="border-b last:border-0 bg-[#F1F5F9]"
+              >
                 <TableCell className="text-[#64748B] text-xs leading-4 px-4 py-2">
                   {formatDate(game.date)}
                 </TableCell>
-                <TableCell className="px-4 py-2 font-medium text-xs leading-4 truncate max-w-0">
+                <TableCell className="px-4 py-2 font-medium text-xs leading-4 truncate max-w-0 dark:text-[#F8FAFC]">
                   {game.tournament}
                 </TableCell>
-                <TableCell className="px-4 py-2 text-xs leading-4 truncate">
+                <TableCell className="px-4 py-2 text-xs leading-4 truncate dark:text-[#F8FAFC]">
                   {game.opponentName}
                 </TableCell>
                 <TableCell className="px-4 py-2 text-right text-[#64748B] text-xs">
@@ -69,7 +73,7 @@ export default function SubRows({
                   )}
                 </TableCell>
                 <TableCell
-                  className={`px-4 py-2 font-bold leading-4 text-xs text-right ${game.change > 0 ? "text-[#10B981]" : game.change < 0 ? "text-[#EF4444]" : "text-[#64748B]"}`}
+                  className={`px-4 py-2 font-bold leading-4 text-xs text-right ${game.change > 0 ? "dark:text-[#10B981] text-[#10B981]" : game.change < 0 ? "dark:text-[#EF4444] text-[#EF4444]" : "dark:text-[#64748B] text-[#64748B]"}`}
                 >
                   {game.change > 0 ? "+" : game.change === 0 ? "" : "-"}{" "}
                   {Math.abs(game.change)}

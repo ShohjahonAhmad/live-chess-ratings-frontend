@@ -85,7 +85,7 @@ export default function RatingTable({ columns, data }: DataTableProps) {
     <div className="px-24 py-6">
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter by countries..."
+          placeholder="Filter by player..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
@@ -94,7 +94,7 @@ export default function RatingTable({ columns, data }: DataTableProps) {
         />
       </div>
       <div className="overflow-hidden rounded-2xl border">
-        <Table className="w-full">
+        <Table className="w-full dark:bg-[#1E293B]/30">
           <TableHeader>
             <TableRow className="w-full">
               <TableHead className="w-[5%]">#</TableHead>
@@ -111,7 +111,9 @@ export default function RatingTable({ columns, data }: DataTableProps) {
               table.getRowModel().rows.map((row) => {
                 return (
                   <React.Fragment key={row.id}>
-                    <TableRow className="transition-all duration-300 ease-in-out">
+                    <TableRow
+                      className={`transition-all duration-300 ease-in-out ${row.getIsExpanded() ? "dark:bg-[#3B82F6]/10 bg-[#3B82F6]/5" : ""}`}
+                    >
                       {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id} className="h-[41px]">
                           {flexRender(
@@ -124,7 +126,10 @@ export default function RatingTable({ columns, data }: DataTableProps) {
                     {(row.getIsExpanded() || closingRows.has(row.id)) &&
                       row.original.recentGames && (
                         <TableRow>
-                          <TableCell colSpan={columns.length}>
+                          <TableCell
+                            colSpan={columns.length}
+                            className="bg-[#3B82F6]/5"
+                          >
                             <div
                               style={{
                                 overflow: "hidden",

@@ -19,7 +19,7 @@ export default function RatingPage({
         ? data.rapidRatings
         : data.stdRatings);
   return (
-    <div>
+    <div className="dark:bg-[#0f172a]">
       <RatingTable data={displayData} columns={columns} />
     </div>
   );

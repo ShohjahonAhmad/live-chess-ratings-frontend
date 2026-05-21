@@ -19,7 +19,7 @@ export const columns: ColumnDef<User>[] = [
 
       return (
         <div
-          className={`leading-5 text-center font-medium ${info.row.getIsExpanded() ? "text-[#3B82F6]" : "text-[#64748B] "}`}
+          className={`leading-5 text-center font-medium ${info.row.getIsExpanded() ? "text-[#3B82F6]" : "dark:text-[#94A3B8] text-[#64748B] "}`}
         >
           {rank}
         </div>
@@ -32,11 +32,16 @@ export const columns: ColumnDef<User>[] = [
     cell: (info) => {
       return (
         <div
-          className={`text-left text-sm font-bold leading-3.5 ${info.row.getIsExpanded() && "text-[#3B82F6]"}`}
+          className={`text-left text-sm font-bold leading-3.5 ${info.row.getIsExpanded() ? "text-[#3B82F6]" : "dark:text-[#F8FAFC]"}`}
         >
           {getFullName(info.getValue() as string)}
         </div>
       );
+    },
+    filterFn: (row, columnId, filterValue) => {
+      const name = row.getValue(columnId) as string;
+      const formatted = getFullName(name).toLowerCase();
+      return formatted.includes((filterValue as string).toLowerCase());
     },
   },
   {
@@ -44,7 +49,7 @@ export const columns: ColumnDef<User>[] = [
     header: "Country",
     cell: (info) => {
       return (
-        <div className="text-[#64748B] text-xs font-medium leading-4 text-center">
+        <div className="text-[#64748B] dark:text-[#94A3B8] text-xs font-medium leading-4 text-center">
           {info.getValue() as string}
         </div>
       );
@@ -56,7 +61,7 @@ export const columns: ColumnDef<User>[] = [
     cell: (info) => {
       const age = new Date().getFullYear() - (info.getValue() as number);
       return (
-        <div className="text-[#64748B] text-sm leading-5 text-center">
+        <div className="text-[#64748B] dark:text-[#94A3B8] text-sm leading-5 text-center">
           {age}
         </div>
       );
@@ -67,7 +72,7 @@ export const columns: ColumnDef<User>[] = [
     header: "Rating",
     cell: (info) => (
       <div
-        className={`font-black leading-5 text-sm text-center ${info.row.getIsExpanded() && "text-[#3B82F6]"}`}
+        className={`font-black leading-5 text-sm text-center dark: ${info.row.getIsExpanded() ? "text-[#3B82F6]" : "dark:text-[#F8FAFC]"}`}
       >
         {info.getValue() as number}
       </div>
@@ -91,7 +96,7 @@ export const columns: ColumnDef<User>[] = [
       const ratingChange = (info.getValue() as number) || 0;
       if (ratingChange === 0)
         return (
-          <div className="text-[#64748B] text-xs font-bold leading-4 text-right">
+          <div className="text-[#64748B] dark:text-[#94A3B8] text-xs font-bold leading-4 text-right">
             {ratingChange}
           </div>
         );
@@ -117,7 +122,7 @@ export const columns: ColumnDef<User>[] = [
       return row.original.recentGames ? (
         <div className="flex justify-center">
           <Button
-            className={`h-5.5 w-5.5 p-0 ${row.getIsExpanded() ? "bg-[#3B82F6] text-white hover:text-white hover:bg-[#3B82F6]" : ""}`}
+            className={`h-5.5 w-5.5 p-0 ${row.getIsExpanded() ? "bg-[#3B82F6] text-white hover:text-white hover:bg-[#3B82F6]" : "dark:text-[#94A3B8]"}`}
             onClick={() => (table.options.meta as any).handleSubRowToggle(row)}
             size="sm"
             variant="ghost"
@@ -134,7 +139,7 @@ export const columns: ColumnDef<User>[] = [
   },
 ];
 
-function getFullName(name: string) {
+export function getFullName(name: string): string {
   const arr = name.split(",");
   const firstName = arr[1] != undefined ? arr[1] : "";
   const lastName = arr[0] != undefined ? arr[0] : "";
