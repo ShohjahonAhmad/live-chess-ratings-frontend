@@ -9,19 +9,14 @@ import RatingLoss from "~/utils/svgs/RatingLoss";
 
 export const columns: ColumnDef<User>[] = [
   {
-    id: "rank",
+    accessorKey: "rank",
     header: "#",
     cell: (info) => {
-      const rank =
-        info.table
-          .getCoreRowModel()
-          .rows.findIndex((row) => row.id == info.row.id) + 1;
-
       return (
         <div
           className={`leading-5 text-center font-medium ${info.row.getIsExpanded() ? "text-[#3B82F6]" : "dark:text-[#94A3B8] text-[#64748B] "}`}
         >
-          {rank}
+          {info.getValue() as string}
         </div>
       );
     },

@@ -6,8 +6,12 @@ import { useLoaderData } from "react-router";
 
 export default function RatingPage({
   timeControl,
+  page,
+  onPageChange,
 }: {
   timeControl: TimeControl;
+  page: number;
+  onPageChange: (page: number) => void;
 }) {
   const data = useLoaderData() as TopRatingsResponse;
 
@@ -18,5 +22,13 @@ export default function RatingPage({
       : timeControl === TimeControl.RAPID
         ? data.rapidRatings
         : data.stdRatings);
-  return <RatingTable data={displayData} columns={columns} />;
+  return (
+    <RatingTable
+      data={displayData.content}
+      columns={columns}
+      totalCount={displayData.totalCount}
+      page={page}
+      onPageChange={onPageChange}
+    />
+  );
 }

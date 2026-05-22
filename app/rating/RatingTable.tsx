@@ -1,7 +1,6 @@
 import {
   flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   type SortingState,
   useReactTable,
@@ -31,10 +30,19 @@ import { useDarkMode } from "~/contexts/DarkModeContext";
 interface DataTableProps {
   columns: ColumnDef<User>[];
   data: User[];
+  page: number;
+  totalCount: number;
+  onPageChange: (page: number) => void;
 }
 
-export default function RatingTable({ columns, data }: DataTableProps) {
-  const { isDark, setIsDark } = useDarkMode();
+export default function RatingTable({
+  columns,
+  data,
+  page,
+  totalCount,
+  onPageChange,
+}: DataTableProps) {
+  const { isDark } = useDarkMode();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [expanded, setExpanded] = useState<ExpandedState>({});
@@ -61,7 +69,6 @@ export default function RatingTable({ columns, data }: DataTableProps) {
     columns,
     getRowCanExpand: (row) => !!row.original.recentGames,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
@@ -69,16 +76,17 @@ export default function RatingTable({ columns, data }: DataTableProps) {
       sorting,
       columnFilters,
       expanded,
+      pagination: {
+        pageIndex: page,
+        pageSize: 100,
+      },
     },
     onExpandedChange: setExpanded,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
-    initialState: {
-      pagination: {
-        pageIndex: 0,
-        pageSize: 100,
-      },
-    },
+    manualPagination: true,
+    rowCount: totalCount,
+
     meta: {
       handleSubRowToggle,
     },
@@ -179,7 +187,7 @@ export default function RatingTable({ columns, data }: DataTableProps) {
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.previousPage()}
+          onClick={() => onPageChange(page - 1)}
           disabled={!table.getCanPreviousPage()}
         >
           Previous
@@ -187,7 +195,7 @@ export default function RatingTable({ columns, data }: DataTableProps) {
         <Button
           variant="outline"
           size="sm"
-          onClick={() => table.nextPage()}
+          onClick={() => onPageChange(page + 1)}
           disabled={!table.getCanNextPage()}
         >
           Next

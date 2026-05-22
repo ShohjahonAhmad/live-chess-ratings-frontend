@@ -1,4 +1,4 @@
-import type { Result } from "~/types/TypeControl";
+import { TimeControl, type Result } from "~/types/TypeControl";
 
 export type RecentGames = {
     readonly id: string;
@@ -14,6 +14,7 @@ export type RecentGames = {
 };
 
 export type TopRating = {
+    readonly rank: number;
     readonly fideId: number;
     readonly name: string;
     readonly country: string;
@@ -25,24 +26,43 @@ export type TopRating = {
 };
   
   export type TopRatingsResponse = {
-    readonly stdRatings: TopRating[];
-    readonly rapidRatings: TopRating[];
-    readonly blitzRatings: TopRating[];
+    readonly stdRatings: Content;
+    readonly rapidRatings: Content;
+    readonly blitzRatings: Content;
   };
 
-export async function getTopRatings():Promise<TopRatingsResponse> {
-    try {
-        const response = await fetch("http://localhost:8080/top-ratings");
+  export type Content = {
+    content: TopRating[];
+    totalCount: number;
+  }
 
-        if (!response.ok) {
-            throw new Error(`API error: ${response.status}`);
+export async function getTopRatings(page: number, tab: TimeControl):Promise<TopRatingsResponse> {
+    try {
+        if(page === 0) {
+          const response = await fetch("http://localhost:8080/top-ratings");
+          if(!response.ok) throw new Error(`API error: ${response.status}`);
+          const data = await response.json();
+          console.log(data);
+          return data;
         }
 
-        const data = await response.json();
+        const endpoint = tab === TimeControl.BLITZ 
+            ? "std-blitz" 
+            : tab === TimeControl.RAPID 
+              ? "rapid-ratings" 
+              : "std-ratings";
 
-        console.log(JSON.stringify(data.stdRatings[0]));
+        const response = await fetch(`http://localhost:8080/${endpoint}?page=${page}`);
 
-        return data;
+        const pageData = await response.json() 
+
+        console.log(pageData)
+
+        return {
+          stdRatings: tab === TimeControl.CLASSICAL ? pageData : null,
+          rapidRatings: tab === TimeControl.RAPID ? pageData : null,
+          blitzRatings: tab === TimeControl.BLITZ ? pageData : null,
+        }
     } catch (err) {
         console.error("Error happened with fetching getStdRatings");
         throw err;

@@ -2,7 +2,7 @@ import Logo from "~/utils/svgs/Logo";
 import Classical from "~/utils/svgs/Classical";
 import Blitz from "~/utils/svgs/Blitz";
 import Rapid from "~/utils/svgs/Rapid";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { TimeControl } from "~/types/TypeControl";
 import TimeControlComponent from "./TimeControlComponent";
 import Mode from "~/utils/svgs/Mode";
@@ -12,7 +12,7 @@ export default function Menu({
   setTimeControl,
 }: {
   timeControl: TimeControl;
-  setTimeControl: React.Dispatch<React.SetStateAction<TimeControl>>;
+  setTimeControl: (tc: TimeControl) => void;
 }) {
   const { isDark, setIsDark } = useDarkMode();
 
