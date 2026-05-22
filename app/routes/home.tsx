@@ -14,23 +14,26 @@ export function meta({}: Route.MetaArgs) {
 
 export async function loader({ request }: Route.LoaderArgs) {
   const searchParams = new URL(request.url).searchParams;
-  const page = Number(searchParams.get("page")) ?? 0;
+  const page = Number(searchParams.get("page") || "0");
   const tab = (searchParams.get("tab") as TimeControl) ?? TimeControl.CLASSICAL;
-  return await getTopRatings(page, tab);
+  return { ratings: getTopRatings(page, tab) };
 }
 
 export default function Home() {
   const [searchParams, setSearchParams] = useSearchParams();
   const timeControl =
     (searchParams.get("tab") as TimeControl) ?? TimeControl.CLASSICAL;
-  const page = Number(searchParams.get("page") ?? 0);
+  const page = Number(searchParams.get("page") || "0");
 
   const setTimeControl = (tc: TimeControl) => {
-    setSearchParams({ tab: tc, page: "0" });
+    setSearchParams({ tab: tc, page: "0" }, { preventScrollReset: true });
   };
 
   const onPageChange = (newPage: number) => {
-    setSearchParams({ tab: timeControl, page: String(newPage) });
+    setSearchParams(
+      { tab: timeControl, page: String(newPage) },
+      { preventScrollReset: true }
+    );
   };
   return (
     <>

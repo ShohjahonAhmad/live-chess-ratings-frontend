@@ -2,11 +2,9 @@ import Logo from "~/utils/svgs/Logo";
 import Classical from "~/utils/svgs/Classical";
 import Blitz from "~/utils/svgs/Blitz";
 import Rapid from "~/utils/svgs/Rapid";
-import { useEffect } from "react";
 import { TimeControl } from "~/types/TypeControl";
 import TimeControlComponent from "./TimeControlComponent";
-import Mode from "~/utils/svgs/Mode";
-import { useDarkMode } from "~/contexts/DarkModeContext";
+import ModeButton from "./ModeButton";
 export default function Menu({
   timeControl,
   setTimeControl,
@@ -14,16 +12,6 @@ export default function Menu({
   timeControl: TimeControl;
   setTimeControl: (tc: TimeControl) => void;
 }) {
-  const { isDark, setIsDark } = useDarkMode();
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [isDark]);
-
   return (
     <main className="w-full h-16 dark:bg-[#334155] bg-[#0F172A] px-20 py-4 flex justify-between items-center">
       <div className="flex gap-2">
@@ -55,12 +43,7 @@ export default function Menu({
             onClick={() => setTimeControl(TimeControl.BLITZ)}
           />
         </div>
-        <button
-          className="p-2 dark:bg-[#0f172a]/50 dark:hover:bg-[#0f172a]/40 bg-[#FEFFFF]/10 hover:bg-[#FEFFFF]/20 rounded-full transition-all duration-200 cursor-pointer hover:scale-110"
-          onClick={() => setIsDark(!isDark)}
-        >
-          <Mode stroke={isDark ? "#94A3B8" : "#64748B"} />
-        </button>
+        <ModeButton />
       </div>
     </main>
   );

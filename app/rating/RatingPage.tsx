@@ -2,7 +2,9 @@ import { type TopRatingsResponse } from "~/api/getTopRatings";
 import RatingTable from "./RatingTable";
 import { columns } from "./columns";
 import { TimeControl } from "~/types/TypeControl";
-import { useLoaderData } from "react-router";
+import { Await, useLoaderData } from "react-router";
+import { Suspense } from "react";
+import SkeletonRows from "./SkeletenRows";
 
 export default function RatingPage({
   timeControl,
@@ -13,22 +15,34 @@ export default function RatingPage({
   page: number;
   onPageChange: (page: number) => void;
 }) {
-  const data = useLoaderData() as TopRatingsResponse;
+  // const loaderData = useLoaderData() as TopRatingsResponse;
 
-  const displayData =
-    data &&
-    (timeControl === TimeControl.BLITZ
-      ? data.blitzRatings
-      : timeControl === TimeControl.RAPID
-        ? data.rapidRatings
-        : data.stdRatings);
+  const { ratings } = useLoaderData() as {
+    ratings: Promise<TopRatingsResponse>;
+  };
+
   return (
-    <RatingTable
-      data={displayData.content}
-      columns={columns}
-      totalCount={displayData.totalCount}
-      page={page}
-      onPageChange={onPageChange}
-    />
+    <Suspense fallback={<SkeletonRows />}>
+      <Await resolve={ratings}>
+        {(loaderData) => {
+          const data =
+            loaderData &&
+            (timeControl === TimeControl.BLITZ
+              ? loaderData.blitzRatings
+              : timeControl === TimeControl.RAPID
+                ? loaderData.rapidRatings
+                : loaderData.stdRatings);
+          return (
+            <RatingTable
+              data={data.content}
+              columns={columns}
+              totalCount={data.totalCount}
+              page={page}
+              onPageChange={onPageChange}
+            />
+          );
+        }}
+      </Await>
+    </Suspense>
   );
 }

@@ -47,7 +47,7 @@ export async function getTopRatings(page: number, tab: TimeControl):Promise<TopR
         }
 
         const endpoint = tab === TimeControl.BLITZ 
-            ? "std-blitz" 
+            ? "blitz-ratings" 
             : tab === TimeControl.RAPID 
               ? "rapid-ratings" 
               : "std-ratings";

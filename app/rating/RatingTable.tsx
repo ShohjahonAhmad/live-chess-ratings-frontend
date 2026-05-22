@@ -1,31 +1,33 @@
 import {
   flexRender,
+  useReactTable,
   getCoreRowModel,
   getSortedRowModel,
-  type SortingState,
-  useReactTable,
-  type ColumnDef,
   getFilteredRowModel,
-  type ColumnFiltersState,
   getExpandedRowModel,
-  type ExpandedState,
   type Row,
+  type ColumnDef,
+  type SortingState,
+  type ExpandedState,
+  type ColumnFiltersState,
 } from "@tanstack/react-table";
 import React, { useState } from "react";
-import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import {
   Table,
+  TableRow,
+  TableHead,
   TableBody,
   TableCell,
-  TableHead,
   TableHeader,
-  TableRow,
 } from "~/components/ui/table";
 import type { User } from "~/types/User";
 import SubRows from "./SubRows";
 import Info from "~/utils/svgs/Info";
 import { useDarkMode } from "~/contexts/DarkModeContext";
+import PaginationFooter from "./PaginationFooter";
+import { useNavigation } from "react-router";
+import SkeletonRows from "./SkeletenRows";
 
 interface DataTableProps {
   columns: ColumnDef<User>[];
@@ -42,11 +44,13 @@ export default function RatingTable({
   totalCount,
   onPageChange,
 }: DataTableProps) {
-  const { isDark } = useDarkMode();
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const PAGE_SIZE = 100;
   const [expanded, setExpanded] = useState<ExpandedState>({});
   const [closingRows, setClosingRows] = useState<Set<string>>(new Set());
+
+  const { isDark } = useDarkMode();
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
 
   const handleSubRowToggle = (row: Row<User>) => {
     if (row.getIsExpanded()) {
@@ -69,21 +73,16 @@ export default function RatingTable({
     columns,
     getRowCanExpand: (row) => !!row.original.recentGames,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
     state: {
-      sorting,
-      columnFilters,
       expanded,
       pagination: {
         pageIndex: page,
-        pageSize: 100,
+        pageSize: PAGE_SIZE,
       },
     },
     onExpandedChange: setExpanded,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     manualPagination: true,
     rowCount: totalCount,
 
@@ -132,7 +131,9 @@ export default function RatingTable({
               <TableHead className="w-[5%]"></TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody
+            className={`transition-opacity duration-200 ${isLoading ? "opacity-60" : "opacity-100"}`}
+          >
             {table.getRowModel().rows?.length > 0 ? (
               table.getRowModel().rows.map((row) => {
                 return (
@@ -183,24 +184,13 @@ export default function RatingTable({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => onPageChange(page - 1)}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => onPageChange(page + 1)}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+      <PaginationFooter
+        isLoading={isLoading}
+        page={page}
+        onPageChange={onPageChange}
+        canPreviousPage={table.getCanPreviousPage()}
+        canNextPage={table.getCanNextPage()}
+      />
     </div>
   );
 }
