@@ -2,14 +2,11 @@ import {
   flexRender,
   useReactTable,
   getCoreRowModel,
-  getSortedRowModel,
   getFilteredRowModel,
   getExpandedRowModel,
   type Row,
-  type ColumnDef,
-  type SortingState,
   type ExpandedState,
-  type ColumnFiltersState,
+  type ColumnDef,
 } from "@tanstack/react-table";
 import React, { useState } from "react";
 import { Input } from "~/components/ui/input";
@@ -27,14 +24,23 @@ import Info from "~/utils/svgs/Info";
 import { useDarkMode } from "~/contexts/DarkModeContext";
 import PaginationFooter from "./PaginationFooter";
 import { useNavigation } from "react-router";
-import SkeletonRows from "./SkeletenRows";
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "~/components/ui/combobox";
+import { countries, type Country } from "~/utils/data/countries";
 
 interface DataTableProps {
   columns: ColumnDef<User>[];
   data: User[];
   page: number;
   totalCount: number;
-  onPageChange: (page: number) => void;
+  setPage: (page: number) => void;
+  setCountry: (country: string) => void;
 }
 
 export default function RatingTable({
@@ -42,7 +48,8 @@ export default function RatingTable({
   data,
   page,
   totalCount,
-  onPageChange,
+  setPage,
+  setCountry,
 }: DataTableProps) {
   const PAGE_SIZE = 100;
   const [expanded, setExpanded] = useState<ExpandedState>({});
@@ -99,19 +106,38 @@ export default function RatingTable({
             <TableRow>
               <TableCell colSpan={columns.length}>
                 <div className="flex w-full items-center justify-between">
-                  <Input
-                    placeholder="Filter by player..."
-                    value={
-                      (table.getColumn("name")?.getFilterValue() as string) ??
-                      ""
-                    }
-                    onChange={(event) =>
-                      table
-                        .getColumn("name")
-                        ?.setFilterValue(event.target.value)
-                    }
-                    className="w-1/5 min-w-64"
-                  />
+                  <div className="flex gap-4">
+                    <Input
+                      placeholder="Filter by player..."
+                      value={
+                        (table.getColumn("name")?.getFilterValue() as string) ??
+                        ""
+                      }
+                      onChange={(event) =>
+                        table
+                          .getColumn("name")
+                          ?.setFilterValue(event.target.value)
+                      }
+                      className="w-1/5 min-w-64"
+                    />
+                    <Combobox items={countries}>
+                      <ComboboxInput placeholder="Select a country" />
+                      <ComboboxContent>
+                        <ComboboxEmpty>No countries found.</ComboboxEmpty>
+                        <ComboboxList>
+                          {(country: Country) => (
+                            <ComboboxItem
+                              key={country.value}
+                              value={country.value}
+                              onClick={() => setCountry(country.value)}
+                            >
+                              {country.label}
+                            </ComboboxItem>
+                          )}
+                        </ComboboxList>
+                      </ComboboxContent>
+                    </Combobox>
+                  </div>
                   <div className="flex gap-1.5 items-center">
                     <Info stroke={isDark ? "#94A3B8" : "#64748B"}></Info>
                     <h2 className="text-[#64748B] dark:text-[#94A3B8]">
@@ -187,7 +213,7 @@ export default function RatingTable({
       <PaginationFooter
         isLoading={isLoading}
         page={page}
-        onPageChange={onPageChange}
+        setPage={setPage}
         canPreviousPage={table.getCanPreviousPage()}
         canNextPage={table.getCanNextPage()}
       />

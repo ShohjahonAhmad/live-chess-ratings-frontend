@@ -1,4 +1,4 @@
-import { type TopRatingsResponse } from "~/api/getTopRatings";
+import { type Content, type TopRatingsResponse } from "~/api/getTopRatings";
 import RatingTable from "./RatingTable";
 import { columns } from "./columns";
 import { TimeControl } from "~/types/TypeControl";
@@ -7,38 +7,31 @@ import { Suspense } from "react";
 import SkeletonRows from "./SkeletenRows";
 
 export default function RatingPage({
-  timeControl,
   page,
-  onPageChange,
+  setPage,
+  setCountry,
 }: {
   timeControl: TimeControl;
   page: number;
-  onPageChange: (page: number) => void;
+  setPage: (page: number) => void;
+  setCountry: (country: string) => void;
 }) {
-  // const loaderData = useLoaderData() as TopRatingsResponse;
-
   const { ratings } = useLoaderData() as {
-    ratings: Promise<TopRatingsResponse>;
+    ratings: Promise<Content>;
   };
 
   return (
     <Suspense fallback={<SkeletonRows />}>
       <Await resolve={ratings}>
-        {(loaderData) => {
-          const data =
-            loaderData &&
-            (timeControl === TimeControl.BLITZ
-              ? loaderData.blitzRatings
-              : timeControl === TimeControl.RAPID
-                ? loaderData.rapidRatings
-                : loaderData.stdRatings);
+        {(data) => {
           return (
             <RatingTable
               data={data.content}
               columns={columns}
               totalCount={data.totalCount}
               page={page}
-              onPageChange={onPageChange}
+              setPage={setPage}
+              setCountry={setCountry}
             />
           );
         }}

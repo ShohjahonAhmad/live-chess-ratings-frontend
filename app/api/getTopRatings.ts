@@ -36,9 +36,9 @@ export type TopRating = {
     totalCount: number;
   }
 
-export async function getTopRatings(page: number, tab: TimeControl):Promise<TopRatingsResponse> {
-    try {
-        if(page === 0) {
+export async function getTopRatings(page: number, tab: TimeControl, country: string):Promise<TopRatingsResponse> {
+  try {
+        if(page === 0 && country === "ALL") {
           const response = await fetch("http://localhost:8080/top-ratings");
           if(!response.ok) throw new Error(`API error: ${response.status}`);
           const data = await response.json();
@@ -52,7 +52,7 @@ export async function getTopRatings(page: number, tab: TimeControl):Promise<TopR
               ? "rapid-ratings" 
               : "std-ratings";
 
-        const response = await fetch(`http://localhost:8080/${endpoint}?page=${page}`);
+        const response = await fetch(`http://localhost:8080/${endpoint}?page=${page}&country=${country}`);
 
         const pageData = await response.json() 
 

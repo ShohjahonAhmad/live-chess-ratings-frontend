@@ -4,13 +4,13 @@ import { Button } from "~/components/ui/button";
 export default function PaginationFooter({
   isLoading,
   page,
-  onPageChange,
+  setPage,
   canPreviousPage,
   canNextPage,
 }: {
   isLoading: boolean;
   page: number;
-  onPageChange: (page: number) => void;
+  setPage: (page: number) => void;
   canPreviousPage: boolean;
   canNextPage: boolean;
 }) {
@@ -25,7 +25,7 @@ export default function PaginationFooter({
         size="sm"
         onClick={() => {
           setLoadingDirection("prev");
-          onPageChange(page - 1);
+          setPage(page - 1);
         }}
         disabled={!canPreviousPage || isLoading}
       >
@@ -40,7 +40,7 @@ export default function PaginationFooter({
         size="sm"
         onClick={() => {
           setLoadingDirection("next");
-          onPageChange(page + 1);
+          setPage(page + 1);
         }}
         disabled={!canNextPage || isLoading}
       >
