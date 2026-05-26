@@ -91,6 +91,7 @@ export const countries: Country[] = [
   
     { label: "Kazakhstan", value: "KAZ" },
     { label: "Kenya", value: "KEN" },
+    { label: "Kosova", value: "KOS" },
     { label: "Kyrgyzstan", value: "KGZ" },
   
     { label: "Latvia", value: "LAT" },

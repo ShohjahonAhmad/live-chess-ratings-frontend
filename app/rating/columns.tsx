@@ -6,6 +6,7 @@ import { ArrowUpDown, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import RatingGain from "~/utils/svgs/RatingGain";
 import RatingLoss from "~/utils/svgs/RatingLoss";
+import { federationToFlag } from "~/utils/data/flags";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -43,9 +44,13 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: "country",
     header: "Country",
     cell: (info) => {
+      const country = info.getValue() as string;
       return (
-        <div className="text-[#64748B] dark:text-[#94A3B8] text-xs font-medium leading-4 text-center">
-          {info.getValue() as string}
+        <div className="flex justify-center">
+          <span
+            className={`fi fi-${federationToFlag[country]} text-base`}
+            title={country}
+          />
         </div>
       );
     },
