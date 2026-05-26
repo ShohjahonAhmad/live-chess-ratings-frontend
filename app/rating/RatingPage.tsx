@@ -10,11 +10,15 @@ export default function RatingPage({
   page,
   setPage,
   setCountry,
+  search,
+  setSearch,
 }: {
   timeControl: TimeControl;
   page: number;
   setPage: (page: number) => void;
   setCountry: (country: string) => void;
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const { ratings } = useLoaderData() as {
     ratings: Promise<Content>;
@@ -32,6 +36,8 @@ export default function RatingPage({
               page={page}
               setPage={setPage}
               setCountry={setCountry}
+              search={search}
+              setSearch={setSearch}
             />
           );
         }}

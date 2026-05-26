@@ -4,6 +4,7 @@ import { getTopRatings, type Content } from "~/api/getTopRatings";
 import RatingPage from "~/rating/RatingPage";
 import { TimeControl } from "~/types/TypeControl";
 import { useSearchParams } from "react-router";
+import { useEffect, useState } from "react";
 
 const ratingsCache = new Map<string, Promise<Content>>();
 
@@ -21,27 +22,28 @@ export function meta({}: Route.MetaArgs) {
 export async function getCachedRatings(
   page: number,
   tab: TimeControl,
-  country: string
+  country: string,
+  search: string
 ): Promise<Content> {
-  const key = `${tab}-${country}-${page}`;
+  const key = `${tab}-${country}-${page}-${search}`;
 
   if (ratingsCache.has(key)) {
     return ratingsCache.get(key)!;
   }
 
-  const promise = getTopRatings(page, tab, country);
+  const promise = getTopRatings(page, tab, country, search);
 
-  if (page === 0 && country === "ALL") {
+  if (page === 0 && country === "ALL" && search === "") {
     ratingsCache.set(
-      "Classical-ALL-0",
+      "Classical-ALL-0-",
       promise.then((data) => data.stdRatings)
     );
     ratingsCache.set(
-      "Rapid-ALL-0",
+      "Rapid-ALL-0-",
       promise.then((data) => data.rapidRatings)
     );
     ratingsCache.set(
-      "Blitz-ALL-0",
+      "Blitz-ALL-0-",
       promise.then((data) => data.blitzRatings)
     );
   } else {
@@ -65,8 +67,9 @@ export async function loader({ request }: Route.LoaderArgs) {
   const page = Number(searchParams.get("page") || "0");
   const tab = (searchParams.get("tab") as TimeControl) ?? TimeControl.CLASSICAL;
   const country = searchParams.get("country") || "ALL";
+  const search = searchParams.get("search") || "";
 
-  return { ratings: getCachedRatings(page, tab, country) };
+  return { ratings: getCachedRatings(page, tab, country, search) };
 }
 
 export default function Home() {
@@ -74,7 +77,25 @@ export default function Home() {
   const timeControl =
     (searchParams.get("tab") as TimeControl) ?? TimeControl.CLASSICAL;
   const page = Number(searchParams.get("page") || "0");
-  const country = searchParams.get("country") || "ALL";
+  const [search, setSearch] = useState<string>("");
+
+  useEffect(() => {
+    const delayedParam = setTimeout(() => {
+      setSearchParams((prev) => {
+        if (search.trim()) {
+          prev.set("search", search.trim());
+        } else {
+          prev.delete("search");
+        }
+
+        prev.set("page", "0");
+
+        return prev;
+      });
+    }, 400);
+
+    return () => clearTimeout(delayedParam);
+  }, [search]);
 
   const setCountry = (country: string) => {
     setSearchParams((prev) => {
@@ -115,6 +136,8 @@ export default function Home() {
         page={page}
         setPage={setPage}
         setCountry={setCountry}
+        search={search}
+        setSearch={setSearch}
       />
     </>
   );
