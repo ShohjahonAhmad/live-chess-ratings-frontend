@@ -43,13 +43,14 @@ export const federationToFlag: Record<string, string> = {
 
     ECU: "ec",
     EGY: "eg",
-    ENG: "gb",
+    ENG: "gb-eng",
     ESP: "es",
     EST: "ee",
     ETH: "et",
 
     FIN: "fi",
     FRA: "fr",
+    FAI: "fo",
 
     GEO: "ge",
     GER: "de",
@@ -112,7 +113,7 @@ export const federationToFlag: Record<string, string> = {
     RSA: "za",
     RUS: "ru",
 
-    SCO: "gb",
+    SCO: "gb-sct",
     SGP: "sg",
     SLO: "si",
     SRB: "rs",
@@ -137,7 +138,7 @@ export const federationToFlag: Record<string, string> = {
     VEN: "ve",
     VIE: "vn",
 
-    WLS: "gb",
+    WLS: "gb-wls",
     YEM: "ye",
 
     ZAM: "zm",

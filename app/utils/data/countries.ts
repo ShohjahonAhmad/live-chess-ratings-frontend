@@ -65,6 +65,7 @@ export const countries: Country[] = [
     { label: "Fiji", value: "FIJ" },
     { label: "Finland", value: "FIN" },
     { label: "France", value: "FRA" },
+    {label: "FIDE", value: "FID"},
   
     { label: "Georgia", value: "GEO" },
     { label: "Germany", value: "GER" },

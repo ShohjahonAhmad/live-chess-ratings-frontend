@@ -21,6 +21,9 @@ import type { User } from "~/types/User";
 import RatingToolBar from "./RatingToolBar";
 import { useNavigation } from "react-router";
 import PaginationFooter from "./PaginationFooter";
+import { Button } from "~/components/ui/button";
+import { ArrowUpDown } from "lucide-react";
+import { SortBy } from "~/types/Sorting";
 
 interface DataTableProps {
   columns: ColumnDef<User>[];
@@ -31,6 +34,7 @@ interface DataTableProps {
   setCountry: (country: string) => void;
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+  setSort: (sorting: SortBy) => void;
 }
 
 export default function RatingTable({
@@ -42,6 +46,7 @@ export default function RatingTable({
   setCountry,
   search,
   setSearch,
+  setSort,
 }: DataTableProps) {
   const PAGE_SIZE = 100;
   const [expanded, setExpanded] = useState<ExpandedState>({});
@@ -106,10 +111,41 @@ export default function RatingTable({
               <TableHead className="w-[5%]">#</TableHead>
               <TableHead className="w-[50%] text-left">Player</TableHead>
               <TableHead className="w-[10%]">Fed</TableHead>
-              <TableHead className="w-[10%]">Age</TableHead>
-              <TableHead className="w-[10%]">Rating</TableHead>
-              <TableHead className="w-[10%] text-right">Change</TableHead>
-              <TableHead className="w-[5%]"></TableHead>
+              <TableHead className="w-[10%]">
+                <Button
+                  variant="ghost"
+                  className="text-xs text-[#64748B] dark:text-[#94A3B8]"
+                  onClick={() => setSort(SortBy.YEAR)}
+                >
+                  Age
+                  <ArrowUpDown className="h-2 w-2" />
+                </Button>
+              </TableHead>
+              <TableHead className="w-[10%]">
+                <Button
+                  variant="ghost"
+                  className="text-xs text-[#64748B] dark:text-[#94A3B8]"
+                  onClick={() => setSort(SortBy.RATING)}
+                >
+                  Rating
+                  <ArrowUpDown className="h-2 w-2" />
+                </Button>
+              </TableHead>
+              <TableHead className="w-[10%] text-right">
+                <Button
+                  variant="ghost"
+                  className="text-xs text-[#64748B] dark:text-[#94A3B8]"
+                  onClick={() => setSort(SortBy.RATING_CHANGE)}
+                >
+                  Change
+                  <ArrowUpDown className="h-2 w-2" />
+                </Button>
+              </TableHead>
+              <TableHead className="w-[5%]">
+                <Button variant="ghost" onClick={() => setSort(SortBy.COUNT)}>
+                  <ArrowUpDown className="h-4 w-4" />
+                </Button>
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody

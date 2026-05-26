@@ -1,12 +1,11 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import type { User } from "~/types/User";
-
 import { ArrowUpDown, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-
 import { Button } from "~/components/ui/button";
 import RatingGain from "~/utils/svgs/RatingGain";
 import RatingLoss from "~/utils/svgs/RatingLoss";
 import { federationToFlag } from "~/utils/data/flags";
+import fidePng from "~/../public/fide.png";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -47,10 +46,11 @@ export const columns: ColumnDef<User>[] = [
       const country = info.getValue() as string;
       return (
         <div className="flex justify-center">
-          <span
-            className={`fi fi-${federationToFlag[country]} text-base`}
-            title={country}
-          />
+          {federationToFlag[country] ? (
+            <span className={`fi fi-${federationToFlag[country]} text-base`} />
+          ) : (
+            <img src={fidePng} alt={country} width="24" height="18" />
+          )}
         </div>
       );
     },

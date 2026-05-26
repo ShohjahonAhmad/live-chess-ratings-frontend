@@ -5,6 +5,7 @@ import RatingPage from "~/rating/RatingPage";
 import { TimeControl } from "~/types/TypeControl";
 import { useSearchParams } from "react-router";
 import { useEffect, useState } from "react";
+import { SortBy, SortDirection } from "~/types/Sorting";
 
 const ratingsCache = new Map<string, Promise<Content>>();
 
@@ -23,27 +24,35 @@ export async function getCachedRatings(
   page: number,
   tab: TimeControl,
   country: string,
-  search: string
+  search: string,
+  sort: SortBy,
+  dir: SortDirection
 ): Promise<Content> {
-  const key = `${tab}-${country}-${page}-${search}`;
+  const key = `${tab}-${country}-${page}-${sort}-${dir}-${search}`;
 
   if (ratingsCache.has(key)) {
     return ratingsCache.get(key)!;
   }
 
-  const promise = getTopRatings(page, tab, country, search);
+  const promise = getTopRatings(page, tab, country, search, sort, dir);
 
-  if (page === 0 && country === "ALL" && search === "") {
+  if (
+    page === 0 &&
+    country === "ALL" &&
+    search === "" &&
+    sort === SortBy.RATING &&
+    dir === SortDirection.DESC
+  ) {
     ratingsCache.set(
-      "Classical-ALL-0-",
+      "Classical-ALL-0-rating-desc-",
       promise.then((data) => data.stdRatings)
     );
     ratingsCache.set(
-      "Rapid-ALL-0-",
+      "Rapid-ALL-0-rating-desc-",
       promise.then((data) => data.rapidRatings)
     );
     ratingsCache.set(
-      "Blitz-ALL-0-",
+      "Blitz-ALL-0-rating-desc-",
       promise.then((data) => data.blitzRatings)
     );
   } else {
@@ -68,8 +77,10 @@ export async function loader({ request }: Route.LoaderArgs) {
   const tab = (searchParams.get("tab") as TimeControl) ?? TimeControl.CLASSICAL;
   const country = searchParams.get("country") || "ALL";
   const search = searchParams.get("search") || "";
+  const sort = (searchParams.get("sort") as SortBy) || SortBy.RATING;
+  const dir = (searchParams.get("dir") as SortDirection) || SortDirection.DESC;
 
-  return { ratings: getCachedRatings(page, tab, country, search) };
+  return { ratings: getCachedRatings(page, tab, country, search, sort, dir) };
 }
 
 export default function Home() {
@@ -78,6 +89,7 @@ export default function Home() {
     (searchParams.get("tab") as TimeControl) ?? TimeControl.CLASSICAL;
   const page = Number(searchParams.get("page") || "0");
   const [search, setSearch] = useState<string>("");
+  const sortDirection = searchParams.get("dir") || "desc";
 
   useEffect(() => {
     const delayedParam = setTimeout(() => {
@@ -128,6 +140,20 @@ export default function Home() {
       { preventScrollReset: true }
     );
   };
+
+  const setSort = (sorting: SortBy) => {
+    setSearchParams((prev) => {
+      prev.set("sort", sorting);
+      prev.set(
+        "dir",
+        sortDirection === SortDirection.ASC
+          ? SortDirection.DESC
+          : SortDirection.ASC
+      );
+
+      return prev;
+    });
+  };
   return (
     <>
       <Menu timeControl={timeControl} setTimeControl={setTimeControl} />
@@ -138,6 +164,7 @@ export default function Home() {
         setCountry={setCountry}
         search={search}
         setSearch={setSearch}
+        setSort={setSort}
       />
     </>
   );
