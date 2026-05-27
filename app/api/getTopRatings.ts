@@ -53,6 +53,7 @@ export async function getTopRatings(page: number, tab: TimeControl, country: str
               ? "rapid-ratings" 
               : "std-ratings";
 
+        console.log(`http://localhost:8080/${endpoint}?page=${page}&country=${country}&search=${search}&sort=${sort}&dir=${dir}`)
         const response = await fetch(`http://localhost:8080/${endpoint}?page=${page}&country=${country}&search=${search}&sort=${sort}&dir=${dir}`);
 
         const pageData = await response.json() 

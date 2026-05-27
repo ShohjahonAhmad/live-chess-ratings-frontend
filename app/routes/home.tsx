@@ -44,15 +44,15 @@ export async function getCachedRatings(
     dir === SortDirection.DESC
   ) {
     ratingsCache.set(
-      "Classical-ALL-0-rating-desc-",
+      "Classical-ALL-0-RATING-DESC-",
       promise.then((data) => data.stdRatings)
     );
     ratingsCache.set(
-      "Rapid-ALL-0-rating-desc-",
+      "Rapid-ALL-0-RATING-DESC-",
       promise.then((data) => data.rapidRatings)
     );
     ratingsCache.set(
-      "Blitz-ALL-0-rating-desc-",
+      "Blitz-ALL-0-RATING-DESC-",
       promise.then((data) => data.blitzRatings)
     );
   } else {
@@ -88,8 +88,12 @@ export default function Home() {
   const timeControl =
     (searchParams.get("tab") as TimeControl) ?? TimeControl.CLASSICAL;
   const page = Number(searchParams.get("page") || "0");
-  const [search, setSearch] = useState<string>("");
-  const sortDirection = searchParams.get("dir") || "desc";
+  const [search, setSearch] = useState<string>(
+    searchParams.get("search") || ""
+  );
+  const sortBy = (searchParams.get("sort") as SortBy) || SortBy.RATING;
+  const sortDirection =
+    (searchParams.get("dir") as SortDirection) || SortDirection.DESC;
 
   useEffect(() => {
     const delayedParam = setTimeout(() => {
@@ -143,13 +147,19 @@ export default function Home() {
 
   const setSort = (sorting: SortBy) => {
     setSearchParams((prev) => {
+      if (sortBy !== sorting) {
+        prev.set("page", "0");
+        prev.set("dir", SortDirection.DESC);
+      } else {
+        prev.set(
+          "dir",
+          sortDirection === SortDirection.ASC
+            ? SortDirection.DESC
+            : SortDirection.ASC
+        );
+      }
+
       prev.set("sort", sorting);
-      prev.set(
-        "dir",
-        sortDirection === SortDirection.ASC
-          ? SortDirection.DESC
-          : SortDirection.ASC
-      );
 
       return prev;
     });
@@ -164,6 +174,8 @@ export default function Home() {
         setCountry={setCountry}
         search={search}
         setSearch={setSearch}
+        sortBy={sortBy}
+        sortDirection={sortDirection}
         setSort={setSort}
       />
     </>

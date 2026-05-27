@@ -5,7 +5,7 @@ import { TimeControl } from "~/types/TypeControl";
 import { Await, useLoaderData } from "react-router";
 import { Suspense } from "react";
 import SkeletonRows from "./SkeletenRows";
-import type { SortBy } from "~/types/Sorting";
+import type { SortBy, SortDirection } from "~/types/Sorting";
 
 export default function RatingPage({
   page,
@@ -13,6 +13,8 @@ export default function RatingPage({
   setCountry,
   search,
   setSearch,
+  sortBy,
+  sortDirection,
   setSort,
 }: {
   timeControl: TimeControl;
@@ -21,6 +23,8 @@ export default function RatingPage({
   setCountry: (country: string) => void;
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+  sortBy: SortBy;
+  sortDirection: SortDirection;
   setSort: (sorting: SortBy) => void;
 }) {
   const { ratings } = useLoaderData() as {
@@ -41,6 +45,8 @@ export default function RatingPage({
               setCountry={setCountry}
               search={search}
               setSearch={setSearch}
+              sortBy={sortBy}
+              sortDirection={sortDirection}
               setSort={setSort}
             />
           );

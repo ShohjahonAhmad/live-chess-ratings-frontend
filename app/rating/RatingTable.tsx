@@ -22,8 +22,9 @@ import RatingToolBar from "./RatingToolBar";
 import { useNavigation } from "react-router";
 import PaginationFooter from "./PaginationFooter";
 import { Button } from "~/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
-import { SortBy } from "~/types/Sorting";
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
+import { SortBy, SortDirection } from "~/types/Sorting";
+import SortingButton from "./SortingButton";
 
 interface DataTableProps {
   columns: ColumnDef<User>[];
@@ -34,6 +35,8 @@ interface DataTableProps {
   setCountry: (country: string) => void;
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
+  sortBy: SortBy;
+  sortDirection: SortDirection;
   setSort: (sorting: SortBy) => void;
 }
 
@@ -46,6 +49,8 @@ export default function RatingTable({
   setCountry,
   search,
   setSearch,
+  sortBy,
+  sortDirection,
   setSort,
 }: DataTableProps) {
   const PAGE_SIZE = 100;
@@ -93,6 +98,8 @@ export default function RatingTable({
     },
   });
 
+  console.log(sortBy);
+
   return (
     <div className="px-24 py-6">
       <div className="overflow-hidden rounded-2xl border">
@@ -112,39 +119,42 @@ export default function RatingTable({
               <TableHead className="w-[50%] text-left">Player</TableHead>
               <TableHead className="w-[10%]">Fed</TableHead>
               <TableHead className="w-[10%]">
-                <Button
-                  variant="ghost"
-                  className="text-xs text-[#64748B] dark:text-[#94A3B8]"
-                  onClick={() => setSort(SortBy.YEAR)}
-                >
-                  Age
-                  <ArrowUpDown className="h-2 w-2" />
-                </Button>
+                <SortingButton
+                  text="Year"
+                  individualSortBy={SortBy.YEAR}
+                  sortBy={sortBy}
+                  sortDirection={sortDirection}
+                  setSort={setSort}
+                />
               </TableHead>
               <TableHead className="w-[10%]">
-                <Button
-                  variant="ghost"
-                  className="text-xs text-[#64748B] dark:text-[#94A3B8]"
-                  onClick={() => setSort(SortBy.RATING)}
-                >
-                  Rating
-                  <ArrowUpDown className="h-2 w-2" />
-                </Button>
+                <SortingButton
+                  text="Rating"
+                  individualSortBy={SortBy.RATING}
+                  sortBy={sortBy}
+                  sortDirection={sortDirection}
+                  setSort={setSort}
+                />
               </TableHead>
-              <TableHead className="w-[10%] text-right">
-                <Button
-                  variant="ghost"
-                  className="text-xs text-[#64748B] dark:text-[#94A3B8]"
-                  onClick={() => setSort(SortBy.RATING_CHANGE)}
-                >
-                  Change
-                  <ArrowUpDown className="h-2 w-2" />
-                </Button>
+              <TableHead className="w-[10%]">
+                <div className="flex justify-end">
+                  <SortingButton
+                    text="Change"
+                    individualSortBy={SortBy.RATING_CHANGE}
+                    sortBy={sortBy}
+                    sortDirection={sortDirection}
+                    setSort={setSort}
+                  />
+                </div>
               </TableHead>
               <TableHead className="w-[5%]">
-                <Button variant="ghost" onClick={() => setSort(SortBy.COUNT)}>
-                  <ArrowUpDown className="h-4 w-4" />
-                </Button>
+                <SortingButton
+                  text=""
+                  individualSortBy={SortBy.COUNT}
+                  sortBy={sortBy}
+                  sortDirection={sortDirection}
+                  setSort={setSort}
+                />
               </TableHead>
             </TableRow>
           </TableHeader>

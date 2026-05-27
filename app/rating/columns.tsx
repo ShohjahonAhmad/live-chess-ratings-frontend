@@ -5,7 +5,7 @@ import { Button } from "~/components/ui/button";
 import RatingGain from "~/utils/svgs/RatingGain";
 import RatingLoss from "~/utils/svgs/RatingLoss";
 import { federationToFlag } from "~/utils/data/flags";
-import fidePng from "~/../public/fide.png";
+import fidePng from "/fide.png";
 
 export const columns: ColumnDef<User>[] = [
   {

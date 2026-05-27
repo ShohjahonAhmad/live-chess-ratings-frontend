@@ -1,11 +1,11 @@
 export enum SortBy {
-    RATING = "rating",
-    RATING_CHANGE = "ratingChange", 
-    YEAR = "year",
-    COUNT = "count"
+    RATING = "RATING",
+    RATING_CHANGE = "RATING_CHANGE", 
+    YEAR = "YEAR",
+    COUNT = "COUNT"
   }
   
 export enum SortDirection {
-    ASC = "asc",
-    DESC = "desc"
+    ASC = "ASC",
+    DESC = "DESC"
   }
