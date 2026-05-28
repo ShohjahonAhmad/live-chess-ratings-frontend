@@ -21,8 +21,6 @@ import type { User } from "~/types/User";
 import RatingToolBar from "./RatingToolBar";
 import { useNavigation } from "react-router";
 import PaginationFooter from "./PaginationFooter";
-import { Button } from "~/components/ui/button";
-import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 import { SortBy, SortDirection } from "~/types/Sorting";
 import SortingButton from "./SortingButton";
 
@@ -97,8 +95,6 @@ export default function RatingTable({
       handleSubRowToggle,
     },
   });
-
-  console.log(sortBy);
 
   return (
     <div className="px-24 py-6">

@@ -1,7 +1,6 @@
 export type Country = {label: string, value: string}
 
 export const countries: Country[] = [
-    { label: "All Countries", value: "ALL" },
     { label: "Afghanistan", value: "AFG" },
     { label: "Albania", value: "ALB" },
     { label: "Algeria", value: "ALG" },
@@ -65,7 +64,7 @@ export const countries: Country[] = [
     { label: "Fiji", value: "FIJ" },
     { label: "Finland", value: "FIN" },
     { label: "France", value: "FRA" },
-    {label: "FIDE", value: "FID"},
+    { label: "FIDE", value: "FID"},
   
     { label: "Georgia", value: "GEO" },
     { label: "Germany", value: "GER" },

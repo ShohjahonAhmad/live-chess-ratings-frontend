@@ -10,6 +10,7 @@ import Info from "~/utils/svgs/Info";
 import { Input } from "~/components/ui/input";
 import { useDarkMode } from "~/contexts/DarkModeContext";
 import { countries, type Country } from "~/utils/data/countries";
+import CountryFilter from "./CountryFilter";
 
 export default function RatingToolBar({
   setCountry,
@@ -30,23 +31,7 @@ export default function RatingToolBar({
           onChange={(event) => setSearch(event.target.value)}
           className="w-1/5 min-w-64"
         />
-        <Combobox items={countries}>
-          <ComboboxInput placeholder="Select a country" />
-          <ComboboxContent>
-            <ComboboxEmpty>No countries found.</ComboboxEmpty>
-            <ComboboxList>
-              {(country: Country) => (
-                <ComboboxItem
-                  key={country.value}
-                  value={country.value}
-                  onClick={() => setCountry(country.value)}
-                >
-                  {country.label}
-                </ComboboxItem>
-              )}
-            </ComboboxList>
-          </ComboboxContent>
-        </Combobox>
+        <CountryFilter setCountry={setCountry} />
       </div>
       <div className="flex gap-1.5 items-center">
         <Info stroke={isDark ? "#94A3B8" : "#64748B"} />
