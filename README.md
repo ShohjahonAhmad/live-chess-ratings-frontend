@@ -5,10 +5,10 @@ Real-time FIDE chess ratings, rankings, and game tracking powered by live tourna
 ## 🚀 Live Demo
 
 **Frontend:**
-[Add Live Demo URL Here]
+https://live-chess-ratings-frontend.vercel.app
 
 **API:**
-[Add API URL Here]
+http://193.122.162.246:8080
 
 ---
 
