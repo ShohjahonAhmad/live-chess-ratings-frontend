@@ -18,7 +18,7 @@ export default function SortingButton({
   return (
     <Button
       variant="ghost"
-      className={`text-xs ${sortBy === individualSortBy ? "text-blue-500" : "text-[#64748B] dark:text-[#94A3B8]"} px-0`}
+      className={`text-xs ${sortBy === individualSortBy ? "text-blue-500" : "text-[#64748B] dark:text-[#94A3B8]"} px-0 transition-all duration-200`}
       onClick={() => setSort(individualSortBy)}
     >
       {text}

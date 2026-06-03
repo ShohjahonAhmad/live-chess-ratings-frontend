@@ -13,15 +13,15 @@ export default function Menu({
   setTimeControl: (tc: TimeControl) => void;
 }) {
   return (
-    <main className="w-full h-16 dark:bg-[#334155] bg-[#0F172A] px-20 py-4 flex justify-between items-center">
-      <div className="flex gap-2">
+    <main className="w-full min-h-16 dark:bg-[#334155] bg-[#0F172A] px-4 md:px-20 py-4 flex flex-col md:flex-row justify-between items-center gap-3">
+      <div className="flex gap-2 items-center">
         <Logo />
-        <h1 className="text-[#F8FAFC] font-extrabold text-xl">
+        <h1 className="text-[#F8FAFC] font-extrabold text-sm sm:text-lg md:text-xl">
           World Chess Rankings
         </h1>
       </div>
-      <div className="flex gap-4 items-center">
-        <div className="p-1 dark:bg-[#0f172a]/50 bg-[#FEFFFF]/10 rounded-full flex items-center">
+      <div className="flex flex-wrap gap-2 items-center justify-center">
+        <div className="p-1 dark:bg-[#0f172a]/50 bg-[#FEFFFF]/10 rounded-full flex flex-wrap items-center justify-center">
           <TimeControlComponent
             svg={
               <Classical isActivated={TimeControl.CLASSICAL === timeControl} />

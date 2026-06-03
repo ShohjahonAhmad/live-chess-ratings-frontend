@@ -97,7 +97,7 @@ export default function RatingTable({
   });
 
   return (
-    <div className="px-24 py-6">
+    <div className="px-2 sm:px-4 md:px-8 lg:px-24 py-4 md:py-6">
       <div className="overflow-hidden rounded-2xl border">
         <Table className="w-full dark:bg-[#1E293B]/30">
           <TableHeader>

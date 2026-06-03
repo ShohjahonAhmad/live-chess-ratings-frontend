@@ -18,6 +18,8 @@ import {
   TableRow,
 } from "~/components/ui/table";
 import { countries } from "~/utils/data/countries";
+import { federationToFlag } from "~/utils/data/flags";
+import fidePng from "/fide.png";
 
 export default function CountryFilter({
   setCountry,
@@ -43,14 +45,14 @@ export default function CountryFilter({
   }
   return (
     <Popover>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button variant="outline">
           <Flag />
           Federation
           <ChevronDown />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="dark:bg-[#1E293B]/30">
+      <PopoverContent className="w-80 p-3 overflow-hidden dark:bg-[#1E293B]/30">
         <Input
           placeholder="Search federation..."
           value={input}
@@ -60,16 +62,15 @@ export default function CountryFilter({
         <div className="max-h-80 overflow-y-auto custom-scrollbar border rounded-md">
           <Table>
             <TableHeader>
-              <TableRow>
+              <TableRow
+                onClick={() => setFederation("ALL")}
+                className="cursor-pointer "
+              >
                 <TableHead>
-                  <Checkbox
-                    name="ALL"
-                    onClick={() => setFederation("ALL")}
-                    checked={country === "ALL"}
-                  />
+                  <Checkbox name="ALL" checked={country === "ALL"} />
                 </TableHead>
                 <TableHead
-                  className={`text-left text-sm ${country === "ALL" ? "dark:text-blue-500 text-blue-500" : "text-black"} font-normal  dark:text-[#94A3B8]`}
+                  className={`text-left hover:text-blue-500 dark:hover:text-blue-500 text-sm ${country === "ALL" ? "dark:text-blue-500 text-blue-500" : "text-black"} font-normal  dark:text-[#94A3B8]`}
                 >
                   All Federations
                 </TableHead>
@@ -78,8 +79,9 @@ export default function CountryFilter({
             <TableBody>
               {filteredCountries.map((item) => (
                 <TableRow
+                  key={item.value}
                   onClick={() => setFederation(item.value)}
-                  className="cursor-pointer"
+                  className="cursor-pointer hover:text-blue-500 group"
                 >
                   <TableCell>
                     <Checkbox
@@ -89,12 +91,19 @@ export default function CountryFilter({
                     />
                   </TableCell>
                   <TableCell
-                    className={`${item.value === country && "dark:text-blue-500 text-blue-500"}`}
+                    className={`flex gap-1 ${item.value === country && "dark:text-blue-500 text-blue-500"} group-hover:text-blue-500 dark:group-hover:text-blue-500`}
                   >
+                    {item.value === "FID" ? (
+                      <img src={fidePng} className="w-5 h-4" />
+                    ) : (
+                      <span
+                        className={`fi fi-${federationToFlag[item.value]}`}
+                      />
+                    )}
                     {item.label}
                   </TableCell>
                   <TableCell
-                    className={`${item.value === country && "dark:text-blue-500 text-blue-500"}`}
+                    className={`${item.value === country && "dark:text-blue-500 text-blue-500"} group-hover:text-blue-500 dark:group-hover:text-blue-500`}
                   >
                     {item.value}
                   </TableCell>

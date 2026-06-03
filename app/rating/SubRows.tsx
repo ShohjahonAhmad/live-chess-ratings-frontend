@@ -20,7 +20,7 @@ export default function SubRows({
     "px-4 py-1.5 text-[#64748B] font-semibold text-xs dark:bg-[#0f172a]/50";
 
   return (
-    <div className="px-12 py-4">
+    <div className="px-2 md:px-12 py-4">
       <div className="rounded-2xl border overflow-hidden shadow-l">
         <Table>
           <TableHeader className="border-b">

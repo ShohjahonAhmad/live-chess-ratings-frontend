@@ -37,10 +37,12 @@ export type TopRating = {
     totalCount: number;
   }
 
+const API = "193.122.162.246";
+
 export async function getTopRatings(page: number, tab: TimeControl, country: string, search: string, sort: SortBy, dir: SortDirection):Promise<TopRatingsResponse> {
   try {
         if(page === 0 && country === "ALL" && search === "" && sort === SortBy.RATING && dir === SortDirection.DESC) {
-          const response = await fetch("http://localhost:8080/top-ratings");
+          const response = await fetch("http://193.122.162.246:8080/top-ratings");
           if(!response.ok) throw new Error(`API error: ${response.status}`);
           const data = await response.json();
           console.log(data);
@@ -53,8 +55,8 @@ export async function getTopRatings(page: number, tab: TimeControl, country: str
               ? "rapid-ratings" 
               : "std-ratings";
 
-        console.log(`http://localhost:8080/${endpoint}?page=${page}&country=${country}&search=${search}&sort=${sort}&dir=${dir}`)
-        const response = await fetch(`http://localhost:8080/${endpoint}?page=${page}&country=${country}&search=${search}&sort=${sort}&dir=${dir}`);
+        console.log(`http://193.122.162.246:8080/${endpoint}?page=${page}&country=${country}&search=${search}&sort=${sort}&dir=${dir}`)
+        const response = await fetch(`http://193.122.162.246:8080/${endpoint}?page=${page}&country=${country}&search=${search}&sort=${sort}&dir=${dir}`);
 
         const pageData = await response.json() 
 
