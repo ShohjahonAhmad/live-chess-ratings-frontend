@@ -52,7 +52,7 @@ export default function CountryFilter({
           <ChevronDown />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80 p-3 overflow-hidden dark:bg-[#1E293B]/30">
+      <PopoverContent className="w-80 p-3 overflow-hidden dark:bg-[#1E293B]">
         <Input
           placeholder="Search federation..."
           value={input}
