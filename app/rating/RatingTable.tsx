@@ -122,7 +122,7 @@ export default function RatingTable({
               <TableHead className="w-[10%]">Fed</TableHead>
               <TableHead className="w-[10%]">
                 <SortingButton
-                  text="Year"
+                  text="Age"
                   individualSortBy={SortBy.YEAR}
                   sortBy={sortBy}
                   sortDirection={sortDirection}
