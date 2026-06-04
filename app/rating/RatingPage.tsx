@@ -16,6 +16,8 @@ export default function RatingPage({
   sortBy,
   sortDirection,
   setSort,
+  onlyActive,
+  setOnlyActive,
 }: {
   timeControl: TimeControl;
   page: number;
@@ -26,6 +28,8 @@ export default function RatingPage({
   sortBy: SortBy;
   sortDirection: SortDirection;
   setSort: (sorting: SortBy) => void;
+  onlyActive: string;
+  setOnlyActive: (active: string) => void;
 }) {
   const { ratings } = useLoaderData() as {
     ratings: Promise<Content>;
@@ -48,6 +52,8 @@ export default function RatingPage({
               sortBy={sortBy}
               sortDirection={sortDirection}
               setSort={setSort}
+              onlyActive={onlyActive}
+              setOnlyActive={setOnlyActive}
             />
           );
         }}

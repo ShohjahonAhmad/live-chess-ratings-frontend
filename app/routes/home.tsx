@@ -26,33 +26,43 @@ export async function getCachedRatings(
   country: string,
   search: string,
   sort: SortBy,
-  dir: SortDirection
+  dir: SortDirection,
+  onlyActive: string
 ): Promise<Content> {
-  const key = `${tab}-${country}-${page}-${sort}-${dir}-${search}`;
+  const key = `${tab}-${country}-${page}-${sort}-${dir}-${onlyActive}-${search}`;
 
   if (ratingsCache.has(key)) {
     return ratingsCache.get(key)!;
   }
 
-  const promise = getTopRatings(page, tab, country, search, sort, dir);
+  const promise = getTopRatings(
+    page,
+    tab,
+    country,
+    search,
+    sort,
+    dir,
+    onlyActive
+  );
 
   if (
     page === 0 &&
     country === "ALL" &&
     search === "" &&
     sort === SortBy.RATING &&
-    dir === SortDirection.DESC
+    dir === SortDirection.DESC &&
+    onlyActive === "true"
   ) {
     ratingsCache.set(
-      "Classical-ALL-0-RATING-DESC-",
+      "Classical-ALL-0-RATING-DESC-true-",
       promise.then((data) => data.stdRatings)
     );
     ratingsCache.set(
-      "Rapid-ALL-0-RATING-DESC-",
+      "Rapid-ALL-0-RATING-DESC-true-",
       promise.then((data) => data.rapidRatings)
     );
     ratingsCache.set(
-      "Blitz-ALL-0-RATING-DESC-",
+      "Blitz-ALL-0-RATING-DESC-true-",
       promise.then((data) => data.blitzRatings)
     );
   } else {
@@ -79,8 +89,20 @@ export async function loader({ request }: Route.LoaderArgs) {
   const search = searchParams.get("search") || "";
   const sort = (searchParams.get("sort") as SortBy) || SortBy.RATING;
   const dir = (searchParams.get("dir") as SortDirection) || SortDirection.DESC;
+  const onlyActive =
+    (searchParams.get("onlyActive") === "false" && "false") || "true";
 
-  return { ratings: getCachedRatings(page, tab, country, search, sort, dir) };
+  return {
+    ratings: getCachedRatings(
+      page,
+      tab,
+      country,
+      search,
+      sort,
+      dir,
+      onlyActive
+    ),
+  };
 }
 
 export default function Home() {
@@ -94,6 +116,8 @@ export default function Home() {
   const sortBy = (searchParams.get("sort") as SortBy) || SortBy.RATING;
   const sortDirection =
     (searchParams.get("dir") as SortDirection) || SortDirection.DESC;
+  const onlyActive =
+    (searchParams.get("onlyActive") === "false" && "false") || "true";
 
   useEffect(() => {
     const delayedParam = setTimeout(() => {
@@ -112,6 +136,14 @@ export default function Home() {
 
     return () => clearTimeout(delayedParam);
   }, [search]);
+
+  const setOnlyActive = (active: string) => {
+    setSearchParams((prev) => {
+      prev.set("onlyActive", active);
+
+      return prev;
+    });
+  };
 
   const setCountry = (country: string) => {
     setSearchParams((prev) => {
@@ -177,6 +209,8 @@ export default function Home() {
         sortBy={sortBy}
         sortDirection={sortDirection}
         setSort={setSort}
+        onlyActive={onlyActive}
+        setOnlyActive={setOnlyActive}
       />
     </>
   );

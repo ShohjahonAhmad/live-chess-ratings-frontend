@@ -36,6 +36,8 @@ interface DataTableProps {
   sortBy: SortBy;
   sortDirection: SortDirection;
   setSort: (sorting: SortBy) => void;
+  onlyActive: string;
+  setOnlyActive: (active: string) => void;
 }
 
 export default function RatingTable({
@@ -50,6 +52,8 @@ export default function RatingTable({
   sortBy,
   sortDirection,
   setSort,
+  onlyActive,
+  setOnlyActive,
 }: DataTableProps) {
   const PAGE_SIZE = 100;
   const [expanded, setExpanded] = useState<ExpandedState>({});
@@ -107,6 +111,8 @@ export default function RatingTable({
                   setCountry={setCountry}
                   search={search}
                   setSearch={setSearch}
+                  onlyActive={onlyActive}
+                  setOnlyActive={setOnlyActive}
                 />
               </TableCell>
             </TableRow>
