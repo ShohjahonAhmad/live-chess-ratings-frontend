@@ -20,12 +20,14 @@ import {
 import { countries } from "~/utils/data/countries";
 import { federationToFlag } from "~/utils/data/flags";
 import fidePng from "/fide.png";
+import { useTranslation } from "react-i18next";
 
 export default function CountryFilter({
   setCountry,
 }: {
   setCountry: (country: string) => void;
 }) {
+  const { t, i18n } = useTranslation();
   const [input, setInput] = useState<string>("");
   const [searchParams] = useSearchParams();
   const country = searchParams.get("country") || "ALL";
@@ -33,7 +35,9 @@ export default function CountryFilter({
     input === ""
       ? countries
       : countries.filter((country) =>
-          country.label.toLowerCase().includes(input.toLowerCase())
+          country.labels[i18n.language as keyof typeof country.labels]
+            .toLowerCase()
+            .includes(input.toLowerCase())
         );
 
   function setFederation(value: string) {
@@ -48,23 +52,23 @@ export default function CountryFilter({
       <PopoverTrigger asChild>
         <Button variant="outline">
           <Flag />
-          Federation
+          {t("countryFilter.button")}
           <ChevronDown />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 p-3 overflow-hidden dark:bg-[#1E293B]">
         <Input
-          placeholder="Search federation..."
+          placeholder={t("countryFilter.searchPlaceholder")}
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
 
-        <div className="max-h-80 overflow-y-auto custom-scrollbar border rounded-md">
+        <div className="max-h-80 overflow-x-hidden overflow-y-auto custom-scrollbar border rounded-md">
           <Table>
             <TableHeader>
               <TableRow
                 onClick={() => setFederation("ALL")}
-                className="cursor-pointer "
+                className="cursor-pointer"
               >
                 <TableHead>
                   <Checkbox name="ALL" checked={country === "ALL"} />
@@ -72,7 +76,7 @@ export default function CountryFilter({
                 <TableHead
                   className={`text-left hover:text-blue-500 dark:hover:text-blue-500 text-sm ${country === "ALL" ? "dark:text-blue-500 text-blue-500" : "text-black"} font-normal  dark:text-[#94A3B8]`}
                 >
-                  All Federations
+                  {t("countryFilter.allFederations")}
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -85,22 +89,24 @@ export default function CountryFilter({
                 >
                   <TableCell>
                     <Checkbox
-                      name={item.label}
+                      name={
+                        item.labels[i18n.language as keyof typeof item.labels]
+                      }
                       checked={country === item.value}
                       className={`${country === item.value && "bg-blue-500 border-blue-500 text-white"}`}
                     />
                   </TableCell>
                   <TableCell
-                    className={`flex gap-1 ${item.value === country && "dark:text-blue-500 text-blue-500"} group-hover:text-blue-500 dark:group-hover:text-blue-500`}
+                    className={`flex max-w-[210px] gap-1 ${item.value === country && "dark:text-blue-500 text-blue-500"} group-hover:text-blue-500 dark:group-hover:text-blue-500 truncate`}
                   >
                     {item.value === "FID" ? (
-                      <img src={fidePng} className="w-5 h-4" />
+                      <img src={fidePng} className="w-5 h-4 shrink-0" />
                     ) : (
                       <span
-                        className={`fi fi-${federationToFlag[item.value]}`}
+                        className={`fi fi-${federationToFlag[item.value]} shrink-0`}
                       />
                     )}
-                    {item.label}
+                    {item.labels[i18n.language as keyof typeof item.labels]}
                   </TableCell>
                   <TableCell
                     className={`${item.value === country && "dark:text-blue-500 text-blue-500"} group-hover:text-blue-500 dark:group-hover:text-blue-500`}

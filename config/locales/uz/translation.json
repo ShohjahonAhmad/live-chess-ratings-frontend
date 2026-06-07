@@ -1,0 +1,48 @@
+{
+    "menu": {
+        "title": "Jahon shaxmat reytingi"
+    },
+
+    "timeControl": {
+        "classical": "Klassik",
+        "rapid": "Rapid",
+        "blitz": "Blits"
+    },
+
+    "toolbar": {
+        "searchPlaceholder": "Ism yoki FIDE ID bo‘yicha qidirish...",
+        "activeOnly": "Faqat faol",
+        "updatedRealTime": "Real vaqt rejimida yangilanadi"
+    },
+
+    "table": {
+        "rank": "#",
+        "player": "Shaxmatchi",
+        "federation": "Davlat",
+        "age": "Yosh",
+        "rating": "Reyting",
+        "change": "O‘zgarish",
+        "games": "Partiyalar",
+        "noResults": "Natija topilmadi."
+    },
+
+    "gamesTable": {
+        "date": "Sana",
+        "tournament": "Turnir",
+        "opponent": "Raqib",
+        "opponentRating": "Raqib reytingi",
+        "result": "Natija",
+        "ratingChange": "Reyting o'zgarishi"
+    },
+
+    "pagination": {
+        "previous": "Oldingi",
+        "next": "Keyingi"
+    },
+
+    "countryFilter": {
+        "button": "Federatsiya",
+        "searchPlaceholder": "Federatsiyani qidirish...",
+        "allFederations": "Barcha federatsiyalar"
+    }
+}

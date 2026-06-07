@@ -1,0 +1,42 @@
+{
+    "menu": {
+        "title": "World Chess Rankings"
+    },
+    "timeControl": {
+        "classical": "Classical",
+        "rapid": "Rapid",
+        "blitz": "Blitz"
+    },
+    "toolbar": {
+        "searchPlaceholder": "Search by name or FIDE ID...",
+        "activeOnly": "Active Only",
+        "updatedRealTime": "Updated in real-time"
+    },
+    "table": {
+        "rank": "#",
+        "player": "Player",
+        "federation": "Fed",
+        "age": "Age",
+        "rating": "Rating",
+        "change": "Change",
+        "games": "Games",
+        "noResults": "No results."
+    },
+    "gamesTable": {
+        "date": "Date",
+        "tournament": "Tournament",
+        "opponent": "Opponent",
+        "opponentRating": "Opp. Rating",
+        "result": "Result",
+        "ratingChange": "Rating +/-"
+    },
+    "pagination": {
+        "previous": "Previous",
+        "next": "Next"
+    },
+    "countryFilter": {
+        "button": "Federation",
+        "searchPlaceholder": "Search federation...",
+        "allFederations": "All Federations"
+    }
+}

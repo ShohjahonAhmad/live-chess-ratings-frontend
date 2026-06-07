@@ -1,166 +1,1143 @@
-export type Country = {label: string, value: string}
+export type Country = {value: string;
+  labels: {
+    en: string;
+    ru: string;
+    uz: string;
+  };}
 
 export const countries: Country[] = [
-    { label: "Afghanistan", value: "AFG" },
-    { label: "Albania", value: "ALB" },
-    { label: "Algeria", value: "ALG" },
-    { label: "Andorra", value: "AND" },
-    { label: "Angola", value: "ANG" },
-    { label: "Antigua and Barbuda", value: "ANT" },
-    { label: "Argentina", value: "ARG" },
-    { label: "Armenia", value: "ARM" },
-    { label: "Aruba", value: "ARU" },
-    { label: "Australia", value: "AUS" },
-    { label: "Austria", value: "AUT" },
-    { label: "Azerbaijan", value: "AZE" },
+  {
+    value: "AFG",
+    labels: {
+      en: "Afghanistan",
+      ru: "Афганистан",
+      uz: "Afg'oniston",
+    },
+  },
+  {
+    value: "ALB",
+    labels: {
+      en: "Albania",
+      ru: "Албания",
+      uz: "Albaniya",
+    },
+  },
+  {
+    value: "ALG",
+    labels: {
+      en: "Algeria",
+      ru: "Алжир",
+      uz: "Jazoir",
+    },
+  },
+  {
+    value: "AND",
+    labels: {
+      en: "Andorra",
+      ru: "Андорра",
+      uz: "Andorra",
+    },
+  },
+  {
+    value: "ANG",
+    labels: {
+      en: "Angola",
+      ru: "Ангола",
+      uz: "Angola",
+    },
+  },
+  {
+    value: "ANT",
+    labels: {
+      en: "Antigua and Barbuda",
+      ru: "Антигуа и Барбуда",
+      uz: "Antigua va Barbuda",
+    },
+  },
+  {
+    value: "ARG",
+    labels: {
+      en: "Argentina",
+      ru: "Аргентина",
+      uz: "Argentina",
+    },
+  },
+  {
+    value: "ARM",
+    labels: {
+      en: "Armenia",
+      ru: "Армения",
+      uz: "Armaniston",
+    },
+  },
+  {
+    value: "ARU",
+    labels: {
+      en: "Aruba",
+      ru: "Аруба",
+      uz: "Aruba",
+    },
+  },
+  {
+    value: "AUS",
+    labels: {
+      en: "Australia",
+      ru: "Австралия",
+      uz: "Avstraliya",
+    },
+  },
+  {
+    value: "AUT",
+    labels: {
+      en: "Austria",
+      ru: "Австрия",
+      uz: "Avstriya",
+    },
+  },
+  {
+    value: "AZE",
+    labels: {
+      en: "Azerbaijan",
+      ru: "Азербайджан",
+      uz: "Ozarbayjon",
+    },
+  },
   
-    { label: "Bahamas", value: "BAH" },
-    { label: "Bahrain", value: "BRN" },
-    { label: "Bangladesh", value: "BAN" },
-    { label: "Barbados", value: "BAR" },
-    { label: "Belarus", value: "BLR" },
-    { label: "Belgium", value: "BEL" },
-    { label: "Belize", value: "BIZ" },
-    { label: "Benin", value: "BEN" },
-    { label: "Bermuda", value: "BER" },
-    { label: "Bhutan", value: "BHU" },
-    { label: "Bolivia", value: "BOL" },
-    { label: "Bosnia and Herzegovina", value: "BIH" },
-    { label: "Botswana", value: "BOT" },
-    { label: "Brazil", value: "BRA" },
-    { label: "Brunei", value: "BRU" },
-    { label: "Bulgaria", value: "BUL" },
-    { label: "Burkina Faso", value: "BUR" },
-    { label: "Burundi", value: "BDI" },
+  {
+    value: "BAH",
+    labels: {
+      en: "Bahamas",
+      ru: "Багамы",
+      uz: "Bagama orollari",
+    },
+  },
+  {
+    value: "BRN",
+    labels: {
+      en: "Bahrain",
+      ru: "Бахрейн",
+      uz: "Bahrayn",
+    },
+  },
+  {
+    value: "BAN",
+    labels: {
+      en: "Bangladesh",
+      ru: "Бангладеш",
+      uz: "Bangladesh",
+    },
+  },
+  {
+    value: "BAR",
+    labels: {
+      en: "Barbados",
+      ru: "Барбадос",
+      uz: "Barbados",
+    },
+  },
+  {
+    value: "BLR",
+    labels: {
+      en: "Belarus",
+      ru: "Беларусь",
+      uz: "Belarus",
+    },
+  },
+  {
+    value: "BEL",
+    labels: {
+      en: "Belgium",
+      ru: "Бельгия",
+      uz: "Belgiya",
+    },
+  },
+  {
+    value: "BIZ",
+    labels: {
+      en: "Belize",
+      ru: "Белиз",
+      uz: "Beliz",
+    },
+  },
+  {
+    value: "BEN",
+    labels: {
+      en: "Benin",
+      ru: "Бенин",
+      uz: "Benin",
+    },
+  },
+  {
+    value: "BER",
+    labels: {
+      en: "Bermuda",
+      ru: "Бермуды",
+      uz: "Bermuda",
+    },
+  },
+  {
+    value: "BHU",
+    labels: {
+      en: "Bhutan",
+      ru: "Бутан",
+      uz: "Butan",
+    },
+  },
+  {
+    value: "BOL",
+    labels: {
+      en: "Bolivia",
+      ru: "Боливия",
+      uz: "Boliviya",
+    },
+  },
+  {
+    value: "BIH",
+    labels: {
+      en: "Bosnia and Herzegovina",
+      ru: "Босния и Герцеговина",
+      uz: "Bosniya va Gersegovina",
+    },
+  },
+  {
+    value: "BOT",
+    labels: {
+      en: "Botswana",
+      ru: "Ботсвана",
+      uz: "Botsvana",
+    },
+  },
+  {
+    value: "BRA",
+    labels: {
+      en: "Brazil",
+      ru: "Бразилия",
+      uz: "Braziliya",
+    },
+  },
+  {
+    value: "BRU",
+    labels: {
+      en: "Brunei",
+      ru: "Бруней",
+      uz: "Bruney",
+    },
+  },
+  {
+    value: "BUL",
+    labels: {
+      en: "Bulgaria",
+      ru: "Болгария",
+      uz: "Bolgariya",
+    },
+  },
+  {
+    value: "BUR",
+    labels: {
+      en: "Burkina Faso",
+      ru: "Буркина-Фасо",
+      uz: "Burkina-Faso",
+    },
+  },
+  {
+    value: "BDI",
+    labels: {
+      en: "Burundi",
+      ru: "Бурунди",
+      uz: "Burundi",
+    },
+  },
   
-    { label: "Cambodia", value: "CAM" },
-    { label: "Cameroon", value: "CMR" },
-    { label: "Canada", value: "CAN" },
-    { label: "Cape Verde", value: "CPV" },
-    { label: "Central African Republic", value: "CAF" },
-    { label: "Chad", value: "CHA" },
-    { label: "Chile", value: "CHI" },
-    { label: "China", value: "CHN" },
-    { label: "Chinese Taipei", value: "TPE" },
-    { label: "Colombia", value: "COL" },
-    { label: "Congo", value: "CGO" },
-    { label: "Costa Rica", value: "CRC" },
-    { label: "Croatia", value: "CRO" },
-    { label: "Cuba", value: "CUB" },
-    { label: "Cyprus", value: "CYP" },
-    { label: "Czech Republic", value: "CZE" },
+  {
+    value: "CAM",
+    labels: {
+      en: "Cambodia",
+      ru: "Камбоджа",
+      uz: "Kambodja",
+    },
+  },
+  {
+    value: "CMR",
+    labels: {
+      en: "Cameroon",
+      ru: "Камерун",
+      uz: "Kamerun",
+    },
+  },
+  {
+    value: "CAN",
+    labels: {
+      en: "Canada",
+      ru: "Канада",
+      uz: "Kanada",
+    },
+  },
+  {
+    value: "CPV",
+    labels: {
+      en: "Cape Verde",
+      ru: "Кабо-Верде",
+      uz: "Kabo-Verde",
+    },
+  },
+  {
+    value: "CAF",
+    labels: {
+      en: "Central African Republic",
+      ru: "Центральноафриканская Республика",
+      uz: "Markaziy Afrika Respublikasi",
+    },
+  },
+  {
+    value: "CHA",
+    labels: {
+      en: "Chad",
+      ru: "Чад",
+      uz: "Chad",
+    },
+  },
+  {
+    value: "CHI",
+    labels: {
+      en: "Chile",
+      ru: "Чили",
+      uz: "Chili",
+    },
+  },
+  {
+    value: "CHN",
+    labels: {
+      en: "China",
+      ru: "Китай",
+      uz: "Xitoy",
+    },
+  },
+  {
+    value: "TPE",
+    labels: {
+      en: "Chinese Taipei",
+      ru: "Китайский Тайбэй",
+      uz: "Xitoy Taypeyi",
+    },
+  },
+  {
+    value: "COL",
+    labels: {
+      en: "Colombia",
+      ru: "Колумбия",
+      uz: "Kolumbiya",
+    },
+  },
+  {
+    value: "CGO",
+    labels: {
+      en: "Congo",
+      ru: "Конго",
+      uz: "Kongo",
+    },
+  },
+  {
+    value: "CRC",
+    labels: {
+      en: "Costa Rica",
+      ru: "Коста-Рика",
+      uz: "Kosta-Rika",
+    },
+  },
+  {
+    value: "CRO",
+    labels: {
+      en: "Croatia",
+      ru: "Хорватия",
+      uz: "Xorvatiya",
+    },
+  },
+  {
+    value: "CUB",
+    labels: {
+      en: "Cuba",
+      ru: "Куба",
+      uz: "Kuba",
+    },
+  },
+  {
+    value: "CYP",
+    labels: {
+      en: "Cyprus",
+      ru: "Кипр",
+      uz: "Kipr",
+    },
+  },
+  {
+    value: "CZE",
+    labels: {
+      en: "Czech Republic",
+      ru: "Чехия",
+      uz: "Chexiya",
+    },
+  },
+  {
+    value: "DEN",
+    labels: {
+      en: "Denmark",
+      ru: "Дания",
+      uz: "Daniya",
+    },
+  },
+  {
+    value: "DOM",
+    labels: {
+      en: "Dominican Republic",
+      ru: "Доминиканская Республика",
+      uz: "Dominikana Respublikasi",
+    },
+  },
   
-    { label: "Denmark", value: "DEN" },
-    { label: "Dominican Republic", value: "DOM" },
+  {
+    value: "ECU",
+    labels: {
+      en: "Ecuador",
+      ru: "Эквадор",
+      uz: "Ekvador",
+    },
+  },
+  {
+    value: "EGY",
+    labels: {
+      en: "Egypt",
+      ru: "Египет",
+      uz: "Misr",
+    },
+  },
+  {
+    value: "ESA",
+    labels: {
+      en: "El Salvador",
+      ru: "Сальвадор",
+      uz: "Salvador",
+    },
+  },
+  {
+    value: "ENG",
+    labels: {
+      en: "England",
+      ru: "Англия",
+      uz: "Angliya",
+    },
+  },
+  {
+    value: "EST",
+    labels: {
+      en: "Estonia",
+      ru: "Эстония",
+      uz: "Estoniya",
+    },
+  },
+  {
+    value: "ETH",
+    labels: {
+      en: "Ethiopia",
+      ru: "Эфиопия",
+      uz: "Efiopiya",
+    },
+  },
   
-    { label: "Ecuador", value: "ECU" },
-    { label: "Egypt", value: "EGY" },
-    { label: "El Salvador", value: "ESA" },
-    { label: "England", value: "ENG" },
-    { label: "Estonia", value: "EST" },
-    { label: "Ethiopia", value: "ETH" },
+  {
+    value: "FAI",
+    labels: {
+      en: "Faroe Islands",
+      ru: "Фарерские острова",
+      uz: "Farer orollari",
+    },
+  },
+  {
+    value: "FIJ",
+    labels: {
+      en: "Fiji",
+      ru: "Фиджи",
+      uz: "Fiji",
+    },
+  },
+  {
+    value: "FIN",
+    labels: {
+      en: "Finland",
+      ru: "Финляндия",
+      uz: "Finlyandiya",
+    },
+  },
+  {
+    value: "FRA",
+    labels: {
+      en: "France",
+      ru: "Франция",
+      uz: "Fransiya",
+    },
+  },
+  {
+    value: "FID",
+    labels: {
+      en: "FIDE",
+      ru: "ФИДЕ",
+      uz: "FIDE",
+    },
+  },
   
-    { label: "Faroe Islands", value: "FAI" },
-    { label: "Fiji", value: "FIJ" },
-    { label: "Finland", value: "FIN" },
-    { label: "France", value: "FRA" },
-    { label: "FIDE", value: "FID"},
+  {
+    value: "GEO",
+    labels: {
+      en: "Georgia",
+      ru: "Грузия",
+      uz: "Gruziya",
+    },
+  },
+  {
+    value: "GER",
+    labels: {
+      en: "Germany",
+      ru: "Германия",
+      uz: "Germaniya",
+    },
+  },
+  {
+    value: "GHA",
+    labels: {
+      en: "Ghana",
+      ru: "Гана",
+      uz: "Gana",
+    },
+  },
+  {
+    value: "GRE",
+    labels: {
+      en: "Greece",
+      ru: "Греция",
+      uz: "Gretsiya",
+    },
+  },
+  {
+    value: "GUA",
+    labels: {
+      en: "Guatemala",
+      ru: "Гватемала",
+      uz: "Gvatemala",
+    },
+  },
   
-    { label: "Georgia", value: "GEO" },
-    { label: "Germany", value: "GER" },
-    { label: "Ghana", value: "GHA" },
-    { label: "Greece", value: "GRE" },
-    { label: "Guatemala", value: "GUA" },
+  {
+    value: "HAI",
+    labels: {
+      en: "Haiti",
+      ru: "Гаити",
+      uz: "Gaiti",
+    },
+  },
+  {
+    value: "HON",
+    labels: {
+      en: "Honduras",
+      ru: "Гондурас",
+      uz: "Gonduras",
+    },
+  },
+  {
+    value: "HKG",
+    labels: {
+      en: "Hong Kong",
+      ru: "Гонконг",
+      uz: "Gonkong",
+    },
+  },
+  {
+    value: "HUN",
+    labels: {
+      en: "Hungary",
+      ru: "Венгрия",
+      uz: "Vengriya",
+    },
+  },
   
-    { label: "Haiti", value: "HAI" },
-    { label: "Honduras", value: "HON" },
-    { label: "Hong Kong", value: "HKG" },
-    { label: "Hungary", value: "HUN" },
+  {
+    value: "ISL",
+    labels: {
+      en: "Iceland",
+      ru: "Исландия",
+      uz: "Islandiya",
+    },
+  },
+  {
+    value: "IND",
+    labels: {
+      en: "India",
+      ru: "Индия",
+      uz: "Hindiston",
+    },
+  },
+  {
+    value: "INA",
+    labels: {
+      en: "Indonesia",
+      ru: "Индонезия",
+      uz: "Indoneziya",
+    },
+  },
+  {
+    value: "IRI",
+    labels: {
+      en: "Iran",
+      ru: "Иран",
+      uz: "Eron",
+    },
+  },
+  {
+    value: "IRQ",
+    labels: {
+      en: "Iraq",
+      ru: "Ирак",
+      uz: "Iroq",
+    },
+  },
+  {
+    value: "IRL",
+    labels: {
+      en: "Ireland",
+      ru: "Ирландия",
+      uz: "Irlandiya",
+    },
+  },
+  {
+    value: "ISR",
+    labels: {
+      en: "Israel",
+      ru: "Израиль",
+      uz: "Isroil",
+    },
+  },
+  {
+    value: "ITA",
+    labels: {
+      en: "Italy",
+      ru: "Италия",
+      uz: "Italiya",
+    },
+  },
   
-    { label: "Iceland", value: "ISL" },
-    { label: "India", value: "IND" },
-    { label: "Indonesia", value: "INA" },
-    { label: "Iran", value: "IRI" },
-    { label: "Iraq", value: "IRQ" },
-    { label: "Ireland", value: "IRL" },
-    { label: "Israel", value: "ISR" },
-    { label: "Italy", value: "ITA" },
+  {
+    value: "JPN",
+    labels: {
+      en: "Japan",
+      ru: "Япония",
+      uz: "Yaponiya",
+    },
+  },
+  {
+    value: "JOR",
+    labels: {
+      en: "Jordan",
+      ru: "Иордания",
+      uz: "Iordaniya",
+    },
+  },
   
-    { label: "Japan", value: "JPN" },
-    { label: "Jordan", value: "JOR" },
+  {
+    value: "KAZ",
+    labels: {
+      en: "Kazakhstan",
+      ru: "Казахстан",
+      uz: "Qozog'iston",
+    },
+  },
+  {
+    value: "KEN",
+    labels: {
+      en: "Kenya",
+      ru: "Кения",
+      uz: "Keniya",
+    },
+  },
+  {
+    value: "KOS",
+    labels: {
+      en: "Kosova",
+      ru: "Косово",
+      uz: "Kosovo",
+    },
+  },
+  {
+    value: "KGZ",
+    labels: {
+      en: "Kyrgyzstan",
+      ru: "Кыргызстан",
+      uz: "Qirg'iziston",
+    },
+  },
   
-    { label: "Kazakhstan", value: "KAZ" },
-    { label: "Kenya", value: "KEN" },
-    { label: "Kosova", value: "KOS" },
-    { label: "Kyrgyzstan", value: "KGZ" },
+  {
+    value: "LAT",
+    labels: {
+      en: "Latvia",
+      ru: "Латвия",
+      uz: "Latviya",
+    },
+  },
+  {
+    value: "LIB",
+    labels: {
+      en: "Lebanon",
+      ru: "Ливан",
+      uz: "Livan",
+    },
+  },
+  {
+    value: "LBA",
+    labels: {
+      en: "Libya",
+      ru: "Ливия",
+      uz: "Liviya",
+    },
+  },
+  {
+    value: "LTU",
+    labels: {
+      en: "Lithuania",
+      ru: "Литва",
+      uz: "Litva",
+    },
+  },
+  {
+    value: "LUX",
+    labels: {
+      en: "Luxembourg",
+      ru: "Люксембург",
+      uz: "Lyuksemburg",
+    },
+  },
   
-    { label: "Latvia", value: "LAT" },
-    { label: "Lebanon", value: "LIB" },
-    { label: "Libya", value: "LBA" },
-    { label: "Lithuania", value: "LTU" },
-    { label: "Luxembourg", value: "LUX" },
+  {
+    value: "MAS",
+    labels: {
+      en: "Malaysia",
+      ru: "Малайзия",
+      uz: "Malayziya",
+    },
+  },
+  {
+    value: "MEX",
+    labels: {
+      en: "Mexico",
+      ru: "Мексика",
+      uz: "Meksika",
+    },
+  },
+  {
+    value: "MDA",
+    labels: {
+      en: "Moldova",
+      ru: "Молдова",
+      uz: "Moldova",
+    },
+  },
+  {
+    value: "MGL",
+    labels: {
+      en: "Mongolia",
+      ru: "Монголия",
+      uz: "Mo'g'uliston",
+    },
+  },
+  {
+    value: "MNE",
+    labels: {
+      en: "Montenegro",
+      ru: "Черногория",
+      uz: "Chernogoriya",
+    },
+  },
+  {
+    value: "MAR",
+    labels: {
+      en: "Morocco",
+      ru: "Марокко",
+      uz: "Marokash",
+    },
+  },
+  {
+    value: "MYA",
+    labels: {
+      en: "Myanmar",
+      ru: "Мьянма",
+      uz: "Myanma",
+    },
+  },
   
-    { label: "Malaysia", value: "MAS" },
-    { label: "Mexico", value: "MEX" },
-    { label: "Moldova", value: "MDA" },
-    { label: "Mongolia", value: "MGL" },
-    { label: "Montenegro", value: "MNE" },
-    { label: "Morocco", value: "MAR" },
-    { label: "Myanmar", value: "MYA" },
+  {
+    value: "NEP",
+    labels: {
+      en: "Nepal",
+      ru: "Непал",
+      uz: "Nepal",
+    },
+  },
+  {
+    value: "NED",
+    labels: {
+      en: "Netherlands",
+      ru: "Нидерланды",
+      uz: "Niderlandiya",
+    },
+  },
+  {
+    value: "NZL",
+    labels: {
+      en: "New Zealand",
+      ru: "Новая Зеландия",
+      uz: "Yangi Zelandiya",
+    },
+  },
+  {
+    value: "NGR",
+    labels: {
+      en: "Nigeria",
+      ru: "Нигерия",
+      uz: "Nigeriya",
+    },
+  },
+  {
+    value: "MKD",
+    labels: {
+      en: "North Macedonia",
+      ru: "Северная Македония",
+      uz: "Shimoliy Makedoniya",
+    },
+  },
+  {
+    value: "NOR",
+    labels: {
+      en: "Norway",
+      ru: "Норвегия",
+      uz: "Norvegiya",
+    },
+  },
   
-    { label: "Nepal", value: "NEP" },
-    { label: "Netherlands", value: "NED" },
-    { label: "New Zealand", value: "NZL" },
-    { label: "Nigeria", value: "NGR" },
-    { label: "North Macedonia", value: "MKD" },
-    { label: "Norway", value: "NOR" },
+  {
+    value: "PAK",
+    labels: {
+      en: "Pakistan",
+      ru: "Пакистан",
+      uz: "Pokiston",
+    },
+  },
+  {
+    value: "PLE",
+    labels: {
+      en: "Palestine",
+      ru: "Палестина",
+      uz: "Falastin",
+    },
+  },
+  {
+    value: "PAR",
+    labels: {
+      en: "Paraguay",
+      ru: "Парагвай",
+      uz: "Paragvay",
+    },
+  },
+  {
+    value: "PER",
+    labels: {
+      en: "Peru",
+      ru: "Перу",
+      uz: "Peru",
+    },
+  },
+  {
+    value: "PHI",
+    labels: {
+      en: "Philippines",
+      ru: "Филиппины",
+      uz: "Filippin",
+    },
+  },
+  {
+    value: "POL",
+    labels: {
+      en: "Poland",
+      ru: "Польша",
+      uz: "Polsha",
+    },
+  },
+  {
+    value: "POR",
+    labels: {
+      en: "Portugal",
+      ru: "Португалия",
+      uz: "Portugaliya",
+    },
+  },
   
-    { label: "Pakistan", value: "PAK" },
-    { label: "Palestine", value: "PLE" },
-    { label: "Paraguay", value: "PAR" },
-    { label: "Peru", value: "PER" },
-    { label: "Philippines", value: "PHI" },
-    { label: "Poland", value: "POL" },
-    { label: "Portugal", value: "POR" },
+  {
+    value: "QAT",
+    labels: {
+      en: "Qatar",
+      ru: "Катар",
+      uz: "Qatar",
+    },
+  },
   
-    { label: "Qatar", value: "QAT" },
+  {
+    value: "ROU",
+    labels: {
+      en: "Romania",
+      ru: "Румыния",
+      uz: "Ruminiya",
+    },
+  },
+  {
+    value: "RUS",
+    labels: {
+      en: "Russia",
+      ru: "Россия",
+      uz: "Rossiya",
+    },
+  },
   
-    { label: "Romania", value: "ROU" },
-    { label: "Russia", value: "RUS" },
+  {
+    value: "KSA",
+    labels: {
+      en: "Saudi Arabia",
+      ru: "Саудовская Аравия",
+      uz: "Saudiya Arabistoni",
+    },
+  },
+  {
+    value: "SCO",
+    labels: {
+      en: "Scotland",
+      ru: "Шотландия",
+      uz: "Shotlandiya",
+    },
+  },
+  {
+    value: "SRB",
+    labels: {
+      en: "Serbia",
+      ru: "Сербия",
+      uz: "Serbiya",
+    },
+  },
+  {
+    value: "SGP",
+    labels: {
+      en: "Singapore",
+      ru: "Сингапур",
+      uz: "Singapur",
+    },
+  },
+  {
+    value: "SVK",
+    labels: {
+      en: "Slovakia",
+      ru: "Словакия",
+      uz: "Slovakiya",
+    },
+  },
+  {
+    value: "SLO",
+    labels: {
+      en: "Slovenia",
+      ru: "Словения",
+      uz: "Sloveniya",
+    },
+  },
+  {
+    value: "RSA",
+    labels: {
+      en: "South Africa",
+      ru: "Южная Африка",
+      uz: "Janubiy Afrika",
+    },
+  },
+  {
+    value: "KOR",
+    labels: {
+      en: "South Korea",
+      ru: "Южная Корея",
+      uz: "Janubiy Koreya",
+    },
+  },
+  {
+    value: "ESP",
+    labels: {
+      en: "Spain",
+      ru: "Испания",
+      uz: "Ispaniya",
+    },
+  },
+  {
+    value: "SRI",
+    labels: {
+      en: "Sri Lanka",
+      ru: "Шри-Ланка",
+      uz: "Shri-Lanka",
+    },
+  },
+  {
+    value: "SWE",
+    labels: {
+      en: "Sweden",
+      ru: "Швеция",
+      uz: "Shvetsiya",
+    },
+  },
+  {
+    value: "SUI",
+    labels: {
+      en: "Switzerland",
+      ru: "Швейцария",
+      uz: "Shveytsariya",
+    },
+  },
+  {
+    value: "SYR",
+    labels: {
+      en: "Syria",
+      ru: "Сирия",
+      uz: "Suriya",
+    },
+  },
   
-    { label: "Saudi Arabia", value: "KSA" },
-    { label: "Scotland", value: "SCO" },
-    { label: "Serbia", value: "SRB" },
-    { label: "Singapore", value: "SGP" },
-    { label: "Slovakia", value: "SVK" },
-    { label: "Slovenia", value: "SLO" },
-    { label: "South Africa", value: "RSA" },
-    { label: "South Korea", value: "KOR" },
-    { label: "Spain", value: "ESP" },
-    { label: "Sri Lanka", value: "SRI" },
-    { label: "Sweden", value: "SWE" },
-    { label: "Switzerland", value: "SUI" },
-    { label: "Syria", value: "SYR" },
+  {
+    value: "TJK",
+    labels: {
+      en: "Tajikistan",
+      ru: "Таджикистан",
+      uz: "Tojikiston",
+    },
+  },
+  {
+    value: "THA",
+    labels: {
+      en: "Thailand",
+      ru: "Таиланд",
+      uz: "Tailand",
+    },
+  },
+  {
+    value: "TUN",
+    labels: {
+      en: "Tunisia",
+      ru: "Тунис",
+      uz: "Tunis",
+    },
+  },
+  {
+    value: "TUR",
+    labels: {
+      en: "Turkey",
+      ru: "Турция",
+      uz: "Turkiya",
+    },
+  },
+  {
+    value: "TKM",
+    labels: {
+      en: "Turkmenistan",
+      ru: "Туркменистан",
+      uz: "Turkmaniston",
+    },
+  },
   
-    { label: "Tajikistan", value: "TJK" },
-    { label: "Thailand", value: "THA" },
-    { label: "Tunisia", value: "TUN" },
-    { label: "Turkey", value: "TUR" },
-    { label: "Turkmenistan", value: "TKM" },
+  {
+    value: "UKR",
+    labels: {
+      en: "Ukraine",
+      ru: "Украина",
+      uz: "Ukraina",
+    },
+  },
+  {
+    value: "UAE",
+    labels: {
+      en: "United Arab Emirates",
+      ru: "Объединённые Арабские Эмираты",
+      uz: "Birlashgan Arab Amirliklari",
+    },
+  },
+  {
+    value: "USA",
+    labels: {
+      en: "United States",
+      ru: "США",
+      uz: "AQSh",
+    },
+  },
+  {
+    value: "URU",
+    labels: {
+      en: "Uruguay",
+      ru: "Уругвай",
+      uz: "Urugvay",
+    },
+  },
+  {
+    value: "UZB",
+    labels: {
+      en: "Uzbekistan",
+      ru: "Узбекистан",
+      uz: "O'zbekiston",
+    },
+  },
   
-    { label: "Ukraine", value: "UKR" },
-    { label: "United Arab Emirates", value: "UAE" },
-    { label: "United States", value: "USA" },
-    { label: "Uruguay", value: "URU" },
-    { label: "Uzbekistan", value: "UZB" },
+  {
+    value: "VEN",
+    labels: {
+      en: "Venezuela",
+      ru: "Венесуэла",
+      uz: "Venesuela",
+    },
+  },
+  {
+    value: "VIE",
+    labels: {
+      en: "Vietnam",
+      ru: "Вьетнам",
+      uz: "Vetnam",
+    },
+  },
   
-    { label: "Venezuela", value: "VEN" },
-    { label: "Vietnam", value: "VIE" },
+  {
+    value: "WLS",
+    labels: {
+      en: "Wales",
+      ru: "Уэльс",
+      uz: "Uels",
+    },
+  },
   
-    { label: "Wales", value: "WLS" },
+  {
+    value: "YEM",
+    labels: {
+      en: "Yemen",
+      ru: "Йемен",
+      uz: "Yaman",
+    },
+  },
   
-    { label: "Yemen", value: "YEM" },
-  
-    { label: "Zambia", value: "ZAM" },
-    { label: "Zimbabwe", value: "ZIM" },
+  {
+    value: "ZAM",
+    labels: {
+      en: "Zambia",
+      ru: "Замбия",
+      uz: "Zambiya",
+    },
+  },
+  {
+    value: "ZIM",
+    labels: {
+      en: "Zimbabwe",
+      ru: "Зимбабве",
+      uz: "Zimbabve",
+    },
+  },
   ] as const;

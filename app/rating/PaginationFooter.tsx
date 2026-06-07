@@ -1,22 +1,22 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "~/components/ui/button";
+import useRatingSearchParams from "~/hooks/useRatingSearchParams";
 
 export default function PaginationFooter({
   isLoading,
-  page,
-  setPage,
   canPreviousPage,
   canNextPage,
 }: {
   isLoading: boolean;
-  page: number;
-  setPage: (page: number) => void;
   canPreviousPage: boolean;
   canNextPage: boolean;
 }) {
   const [loadingDirection, setLoadingDirection] = useState<
     "next" | "prev" | null
   >(null);
+  const { page, setPage } = useRatingSearchParams();
+  const { t } = useTranslation();
 
   return (
     <div className="flex items-center justify-end space-x-2 py-4">
@@ -32,7 +32,7 @@ export default function PaginationFooter({
         {isLoading && loadingDirection === "prev" ? (
           <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
         ) : (
-          "Prev"
+          t("pagination.previous")
         )}
       </Button>
       <Button
@@ -47,7 +47,7 @@ export default function PaginationFooter({
         {isLoading && loadingDirection === "next" ? (
           <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
         ) : (
-          "Next"
+          t("pagination.next")
         )}
       </Button>
     </div>

@@ -3,32 +3,25 @@ import { Input } from "~/components/ui/input";
 import { useDarkMode } from "~/contexts/DarkModeContext";
 import CountryFilter from "./CountryFilter";
 import { Switch } from "~/components/ui/switch";
+import useRatingSearchParams from "~/hooks/useRatingSearchParams";
+import { useTranslation } from "react-i18next";
 
-export default function RatingToolBar({
-  setCountry,
-  search,
-  setSearch,
-  onlyActive,
-  setOnlyActive,
-}: {
-  setCountry: (country: string) => void;
-  search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
-  onlyActive: string;
-  setOnlyActive: (active: string) => void;
-}) {
+export default function RatingToolBar() {
+  const { t } = useTranslation();
   const { isDark } = useDarkMode();
+  const { search, setSearch, setCountry, onlyActive, setOnlyActive } =
+    useRatingSearchParams();
   return (
     <div className="flex w-full items-center justify-between gap-4">
       <div className="flex gap-4 items-center">
         <Input
-          placeholder="Search by name or FIDE ID..."
+          placeholder={t("toolbar.searchPlaceholder")}
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           className="w-1/5 min-w-64"
         />
         <CountryFilter setCountry={setCountry} />
-        <span>Active Only</span>
+        <span>{t("toolbar.activeOnly")}</span>
         <Switch
           checked={onlyActive === "true"}
           onCheckedChange={() =>
@@ -40,7 +33,7 @@ export default function RatingToolBar({
       <div className="flex gap-1.5 items-center">
         <Info stroke={isDark ? "#94A3B8" : "#64748B"} />
         <h2 className="text-[#64748B] dark:text-[#94A3B8]">
-          Updated in real-time
+          {t("toolbar.updatedRealTime")}
         </h2>
       </div>
     </div>

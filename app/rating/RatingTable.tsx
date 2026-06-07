@@ -21,39 +21,21 @@ import type { User } from "~/types/User";
 import RatingToolBar from "./RatingToolBar";
 import { useNavigation } from "react-router";
 import PaginationFooter from "./PaginationFooter";
-import { SortBy, SortDirection } from "~/types/Sorting";
+import { SortBy } from "~/types/Sorting";
 import SortingButton from "./SortingButton";
+import useRatingSearchParams from "~/hooks/useRatingSearchParams";
+import { useTranslation } from "react-i18next";
 
 interface DataTableProps {
   columns: ColumnDef<User>[];
   data: User[];
-  page: number;
   totalCount: number;
-  setPage: (page: number) => void;
-  setCountry: (country: string) => void;
-  search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
-  sortBy: SortBy;
-  sortDirection: SortDirection;
-  setSort: (sorting: SortBy) => void;
-  onlyActive: string;
-  setOnlyActive: (active: string) => void;
 }
 
 export default function RatingTable({
   columns,
   data,
-  page,
   totalCount,
-  setPage,
-  setCountry,
-  search,
-  setSearch,
-  sortBy,
-  sortDirection,
-  setSort,
-  onlyActive,
-  setOnlyActive,
 }: DataTableProps) {
   const PAGE_SIZE = 100;
   const [expanded, setExpanded] = useState<ExpandedState>({});
@@ -61,6 +43,8 @@ export default function RatingTable({
 
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
+  const { page } = useRatingSearchParams();
+  const { t } = useTranslation();
 
   const handleSubRowToggle = (row: Row<User>) => {
     if (row.getIsExpanded()) {
@@ -107,56 +91,37 @@ export default function RatingTable({
           <TableHeader>
             <TableRow>
               <TableCell colSpan={columns.length}>
-                <RatingToolBar
-                  setCountry={setCountry}
-                  search={search}
-                  setSearch={setSearch}
-                  onlyActive={onlyActive}
-                  setOnlyActive={setOnlyActive}
-                />
+                <RatingToolBar />
               </TableCell>
             </TableRow>
             <TableRow className="w-full">
-              <TableHead className="w-[5%]">#</TableHead>
-              <TableHead className="w-[50%] text-left">Player</TableHead>
-              <TableHead className="w-[10%]">Fed</TableHead>
+              <TableHead className="w-[5%]">{t("table.rank")}</TableHead>
+              <TableHead className="w-[50%] text-left">
+                {t("table.player")}
+              </TableHead>
+              <TableHead className="w-[10%]">{t("table.federation")}</TableHead>
               <TableHead className="w-[10%]">
                 <SortingButton
-                  text="Age"
+                  text={t("table.age")}
                   individualSortBy={SortBy.YEAR}
-                  sortBy={sortBy}
-                  sortDirection={sortDirection}
-                  setSort={setSort}
                 />
               </TableHead>
               <TableHead className="w-[10%]">
                 <SortingButton
-                  text="Rating"
+                  text={t("table.rating")}
                   individualSortBy={SortBy.RATING}
-                  sortBy={sortBy}
-                  sortDirection={sortDirection}
-                  setSort={setSort}
                 />
               </TableHead>
               <TableHead className="w-[10%]">
                 <div className="flex justify-end">
                   <SortingButton
-                    text="Change"
+                    text={t("table.change")}
                     individualSortBy={SortBy.RATING_CHANGE}
-                    sortBy={sortBy}
-                    sortDirection={sortDirection}
-                    setSort={setSort}
                   />
                 </div>
               </TableHead>
               <TableHead className="w-[5%]">
-                <SortingButton
-                  text=""
-                  individualSortBy={SortBy.COUNT}
-                  sortBy={sortBy}
-                  sortDirection={sortDirection}
-                  setSort={setSort}
-                />
+                <SortingButton text="" individualSortBy={SortBy.COUNT} />
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -206,7 +171,7 @@ export default function RatingTable({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  {t("table.noResults")}
                 </TableCell>
               </TableRow>
             )}
@@ -215,8 +180,6 @@ export default function RatingTable({
       </div>
       <PaginationFooter
         isLoading={isLoading}
-        page={page}
-        setPage={setPage}
         canPreviousPage={table.getCanPreviousPage()}
         canNextPage={table.getCanNextPage()}
       />

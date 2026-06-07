@@ -10,12 +10,22 @@ import {
 import Draw from "./results/Draw";
 import Win from "./results/Win";
 import Loss from "./results/Loss";
+import { useTranslation } from "react-i18next";
+import { format } from "date-fns";
+import { uz, enGB, ru } from "date-fns/locale";
+
+const localeMap = {
+  uz: uz,
+  en: enGB,
+  ru: ru,
+};
 
 export default function SubRows({
   recentGames,
 }: {
   recentGames: RecentGames[];
 }) {
+  const { t, i18n } = useTranslation();
   const headerClasses =
     "px-4 py-1.5 text-[#64748B] font-semibold text-xs dark:bg-[#0f172a]/50";
 
@@ -26,33 +36,35 @@ export default function SubRows({
           <TableHeader className="border-b">
             <TableRow className="bg-[#F1F5F9]">
               <TableHead className={`text-left ${headerClasses} w-[10%]`}>
-                Date
+                {t("gamesTable.date")}
               </TableHead>
               <TableHead className={`text-left ${headerClasses} w-[25%]`}>
-                Tournament
+                {t("gamesTable.tournament")}
               </TableHead>
               <TableHead className={`text-left ${headerClasses} w-[25%]`}>
-                Opponent
+                {t("gamesTable.opponent")}
               </TableHead>
               <TableHead className={`text-right ${headerClasses} w-[15%]`}>
-                Opp. Rating
+                {t("gamesTable.opponentRating")}
               </TableHead>
               <TableHead className={`text-center ${headerClasses} w-[15%]`}>
-                Result
+                {t("gamesTable.result")}
               </TableHead>
               <TableHead className={`text-right ${headerClasses} w-[15%]`}>
-                Rating +/-
+                {t("gamesTable.ratingChange")}
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody className="dark:bg-[#0f172a]">
-            {recentGames.map((game, idx) => (
+            {recentGames.map((game) => (
               <TableRow
                 key={game.id}
                 className="border-b last:border-0 bg-[#F1F5F9]"
               >
                 <TableCell className="text-[#64748B] text-xs leading-4 px-4 py-2">
-                  {formatDate(game.date)}
+                  {format(new Date(game.date), "d MMMM yyyy", {
+                    locale: localeMap[i18n.language as keyof typeof localeMap],
+                  })}
                 </TableCell>
                 <TableCell className="px-4 py-2 font-medium text-xs leading-4 truncate max-w-0 dark:text-[#F8FAFC]">
                   {game.tournament}
@@ -85,12 +97,4 @@ export default function SubRows({
       </div>
     </div>
   );
-}
-
-function formatDate(date: string): string {
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
 }

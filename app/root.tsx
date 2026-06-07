@@ -9,7 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import { useEffect, useState } from "react";
+import "./i18n";
 import { DarkModeProvider } from "./contexts/DarkModeContext";
 
 export const links: Route.LinksFunction = () => [
@@ -32,7 +32,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="rus" className="transition-colors duration-300">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

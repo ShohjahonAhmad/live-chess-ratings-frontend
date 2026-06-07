@@ -1,0 +1,50 @@
+{
+    "menu": {
+        "title": "Мировой рейтинг по шахматам"
+    },
+    
+    "timeControl": {
+        "classical": "Классика",
+        "rapid": "Рапид",
+        "blitz": "Блиц"
+    },
+
+    "toolbar": {
+        "searchPlaceholder": "Поиск по имени или ID ФИДЕ...",
+        "activeOnly": "Только активные",
+        "updatedRealTime": "Обновляется в реальном времени"
+    },
+
+    "table": {
+        "rank": "#",
+        "player": "Игрок",
+        "federation": "Фед.",
+        "age": "Возраст",
+        "rating": "Рейтинг",
+        "change": "Изм.",
+        "games": "Партии",
+        "noResults": "Ничего не найдено."
+    },
+
+    "gamesTable": {
+        "date": "Дата",
+        "tournament": "Турнир",
+        "opponent": "Соперник",
+        "opponentRating": "Рейтинг соп.",
+        "result": "Результат",
+        "ratingChange": "Изм. рейтинга"
+    }, 
+
+    "pagination": {
+        "previous": "Назад",
+        "next": "Вперёд"
+    },
+
+
+    "countryFilter": {
+        "button": "Федерация",
+        "searchPlaceholder": "Поиск федерации...",
+        "allFederations": "Все федерации"
+    }
+
+}
