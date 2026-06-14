@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
 import { uz, enGB, ru } from "date-fns/locale";
 
-const localeMap = {
+export const localeMap = {
   uz: uz,
   en: enGB,
   ru: ru,

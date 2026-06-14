@@ -38,5 +38,6 @@
         "button": "Federation",
         "searchPlaceholder": "Search federation...",
         "allFederations": "All Federations"
-    }
+    },
+    "peak": "Peak Rating"
 }

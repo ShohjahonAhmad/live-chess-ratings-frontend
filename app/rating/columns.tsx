@@ -6,6 +6,20 @@ import RatingGain from "~/utils/svgs/RatingGain";
 import RatingLoss from "~/utils/svgs/RatingLoss";
 import { federationToFlag } from "~/utils/data/flags";
 import fidePng from "/fide.png";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
+import { useTranslation } from "react-i18next";
+import { uz, enGB, ru } from "date-fns/locale";
+import { format } from "date-fns";
+
+export const localeMap = {
+  uz: uz,
+  en: enGB,
+  ru: ru,
+};
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -70,13 +84,30 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "rating",
     header: "Rating",
-    cell: (info) => (
-      <div
-        className={`font-black leading-5 text-sm text-center dark: ${info.row.getIsExpanded() ? "text-[#3B82F6]" : "dark:text-[#F8FAFC]"}`}
-      >
-        {info.getValue() as number}
-      </div>
-    ),
+    cell: (info) => {
+      const { t, i18n } = useTranslation();
+      const { peakRating, peakRatingDate } = info.row.original;
+      return (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div
+              className={`font-black leading-5 text-sm text-center ${info.row.getIsExpanded() ? "text-[#3B82F6]" : "dark:text-[#F8FAFC]"}`}
+            >
+              {info.getValue() as number}
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>
+            <div className="text-xs text-center">
+              {t("peak")}: {peakRating}
+              <br />
+              {format(new Date(peakRatingDate), "LLLL yyyy", {
+                locale: localeMap[i18n.language as keyof typeof localeMap],
+              }).replace(/^./, (c) => c.toUpperCase())}
+            </div>
+          </TooltipContent>
+        </Tooltip>
+      );
+    },
   },
   {
     accessorKey: "ratingChange",

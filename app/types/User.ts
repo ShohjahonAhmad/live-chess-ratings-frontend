@@ -5,6 +5,8 @@ export type User = {
   name: string;
   country: string;
   year: number;
+  peakRating: number;
+  peakRatingDate: string;
   rating: number;
   ratingChange: number;
   count: number;
