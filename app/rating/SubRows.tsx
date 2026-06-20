@@ -76,7 +76,7 @@ export default function SubRows({
                   {game.opponentRating}
                 </TableCell>
                 <TableCell className="px-4 py-2 flex justify-center">
-                  {game.result == "DRAW" ? (
+                  {game.result == "DRAW" || game.change == 0 ? (
                     <Draw />
                   ) : game.change > 0 ? (
                     <Win score={`${game.result === "WIN" ? "1-0" : "0-1"}`} />
